@@ -6,7 +6,7 @@ class Empleados extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model('Api_model','AM',true);
+		//$this->load->model('Api_model','AM',true);
 		$this->load->library('componentes');
 		$this->load->helper(array('form', 'url'));
 	}

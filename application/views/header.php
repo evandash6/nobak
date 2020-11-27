@@ -2,8 +2,8 @@
 <html lang="es">
     <head>
         <meta charset="utf-8">
-        <title>Olimpoos</title>
-        <meta name="description" content="Sistema Web Administrativo Olimpoos">
+        <title>NOBAK</title>
+        <meta name="description" content="Panel Administrativo NOBAK">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
         <meta name="apple-mobile-web-app-capable" content="yes" />

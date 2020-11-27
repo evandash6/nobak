@@ -28,26 +28,14 @@ $materiaprima_m = '';
 $compras_m = '';
 $ventas_m = '';
 $caja_chica_m = '';
+$productos_m = '';
+$cedis_m='';
 
 $vacia_m = '';
 
 
 switch (true) {
         ///////////////// Administracion //////
-    case strpos($url, 'configuraciones') !== false:
-        $configuraciones_m = 'active';
-        $fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Configuraciones';
-        $descri_m = 'Módulo para la configuración del Sistema Olimpoos';
-        $m_superior_admin = 'active open';
-        break;
-    case strpos($url, 'perfiles') !== false:
-        $perfiles_m = 'active';
-        $fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Perfiles';
-        $descri_m = 'Módulo para la administración de perfiles de usuarios';
-        $m_superior_admin = 'active open';
-        break;
     case strpos($url, 'empleados') !== false:
         $empleados_m = 'active';
         $fa_icon = 'fal fa-cogs';
@@ -62,13 +50,6 @@ switch (true) {
         $descri_m = 'Módulo para la creación y administración de usuarios';
         $m_superior_admin = 'active open';
     break;
-    case strpos($url, 'proveedores') !== false:
-		$proveedores_m = 'active';
-		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Proveedores';
-        $descri_m = 'Módulo para la creación y administración de proveedores';
-        $m_superior_admin = 'active open';
-    break;
     case strpos($url, 'clientes') !== false:
 		$clientes_m = 'active';
 		$fa_icon = 'fal fa-cogs';
@@ -76,14 +57,21 @@ switch (true) {
         $descri_m = 'Módulo para la creación y administración de clientes';
         $m_superior_admin = 'active open';
     break;
-    case strpos($url, 'reloj') !== false:
-		$checador_m = 'active';
+    case strpos($url, 'productos') !== false:
+		$productos_m = 'active';
 		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración - Reloj Checador';
-        $descri_m = 'Módulo para la revisión del Reloj Checador';
+        $titulo_m = 'Administración / Productos';
+        $descri_m = 'Módulo para la creación y administración de productos';
         $m_superior_admin = 'active open';
     break;
-    /////////////// Produccion //////////////
+    case strpos($url, 'cedis') !== false:
+		$cedis_m = 'active';
+		$fa_icon = 'fal fa-cogs';
+        $titulo_m = 'Administración / Cedis';
+        $descri_m = 'Módulo para la creación y administración de Centros de distribución';
+        $m_superior_admin = 'active open';
+    break;
+    /////////////// Seguimiento //////////////
     case strpos($url, 'rollos') !== false:
 		$prollos_m = 'active';
 		$fa_icon = 'fal fa-puzzle-piece';
@@ -159,44 +147,44 @@ switch (true) {
     <li class="'.$m_superior_admin.'">
         <a href="#"><i class="fal fa-cogs m-r-10"></i><span class="nav-link-text"> Administración</span></a>
         <ul>
-            <li class="'.$configuraciones_m.'">
-                <a href="'.base_url().'configuraciones" title="Configuraciones" data-filter-tags="configuraciones">
-                    <span class="nav-link-text">Configuraciones </span>
-                </a>
-            </li>
             <li class="'.$empleados_m.'">
                 <a href="'.base_url().'empleados" title="Empleados" data-filter-tags="empleados">
-                    <span class="nav-link-text">Empleados</span>
+                <i class="fal fa-id-badge m-r-10"></i><span class="nav-link-text">Empleados</span>
                 </a>
             </li>
             <li class="'.$usuarios_m.'">
                 <a href="'.base_url().'usuarios" title="Usuarios" data-filter-tags="usuarios">
-                    <span class="nav-link-text">Usuarios</span>
+                <i class="fal fa-users m-r-10"></i><span class="nav-link-text">Usuarios</span>
                 </a>
             </li>    
-            <li class="'.$proveedores_m.'">
-                <a href="'.base_url().'proveedores" title="Proveedores" data-filter-tags="proveedores">
-                    <span class="nav-link-text">Proveedores</span>
-                </a>
-            </li>
             <li class="'.$clientes_m.'">
                 <a href="'.base_url().'clientes" title="Clientes" data-filter-tags="clientes">
-                    <span class="nav-link-text">Clientes</span>
+                <i class="fal fa-handshake m-r-10"></i><span class="nav-link-text">Clientes</span>
+                </a>
+            </li>
+            <li class="'.$productos_m.'">
+                <a href="'.base_url().'productos" title="Productos" data-filter-tags="productos">
+                <i class="fal fa-shopping-bag m-r-10"></i><span class="nav-link-text">Productos</span>
+                </a>
+            </li>
+            <li class="'.$cedis_m.'">
+                <a href="'.base_url().'cedis" title="Cedis" data-filter-tags="cedis">
+                <i class="fal fa-building m-r-10"></i><span class="nav-link-text">CeDis</span>
                 </a>
             </li>
         </ul>
     </li>
     <li class="'.$m_superior_oper.'">
-        <a href="#"><i class="fal fa-puzzle-piece"></i><span class="nav-link-text">Producción</span></a>
+        <a href="#"><i class="fal fa-puzzle-piece"></i><span class="nav-link-text">Seguimiento</span></a>
         <ul>
             <li class="'.$prollos_m.'">
-                <a href="'.base_url().'rollos" title="Producción de Rollos" data-filter-tags="producción rollo">
-                    <span class="nav-link-text">Producción de Rollos</span>
+                <a href="'.base_url().'rollos" title="Seguimiento Clientes" data-filter-tags="seguimiento clientes">
+                    <span class="nav-link-text">Seguimiento Clientes</span>
                 </a>
             </li>
             <li class="'.$corte_m.'">
-                <a href="'.base_url().'corte" title="Producción de Piezas" data-filter-tags="producción de piezas">
-                    <span class="nav-link-text">Programación de Corte</span>
+                <a href="'.base_url().'corte" title="Seguimiento Administrador" data-filter-tags="seguimeinto administrador">
+                    <span class="nav-link-text">Seguimiento Administración</span>
                 </a>
             </li>
         </ul>
