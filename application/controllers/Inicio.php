@@ -9,7 +9,6 @@ class Inicio extends CI_Controller {
 		$this->load->library('componentes');
 		//$this->load->model('Api_model','AM',true);
 	}
-
 	//Carga de componentes basicas
 	private function basicas(){
 		$data['logo'] = $this->componentes->logo();
@@ -25,13 +24,11 @@ class Inicio extends CI_Controller {
 		$this->load->view('footer');
 		
 	}
-
 	public function empleados(){
 		$data = $this->basicas();
 		$this->load->view('empleados/empleado');
 		$this->load->view('footer');
 	}
-
 	public function usuarios(){
 		$data = $this->basicas();
 		$this->load->view('usuarios/usuario');

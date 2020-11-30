@@ -10,7 +10,6 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <div class="row">
-                        
                         <div class="col-md-8" style="padding-left:30px">
                             <div class="row m-t-20">
                                 <h5>Datos Personales</h5>
