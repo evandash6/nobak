@@ -38,11 +38,19 @@ class Inicio extends CI_Controller {
 	public function clientes(){
 		$data = $this->basicas();
 		$this->load->view('clientes/cliente');
+		$this->load->view('clientes/cliente_js');
 		$this->load->view('footer');
 	}
 	public function productos(){
 		$data = $this->basicas();
 		$this->load->view('productos/producto');
+		$this->load->view('productos/producto_js');
+		$this->load->view('footer');
+	}
+	public function cedis(){
+		$data = $this->basicas();
+		$this->load->view('cedis/cedis');
+		$this->load->view('cedis/cedis_js');
 		$this->load->view('footer');
 	}
 }

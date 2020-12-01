@@ -54,5 +54,6 @@ $route['empleados'] = 'inicio/empleados';
 $route['usuarios'] = 'inicio/usuarios';
 $route['clientes'] = 'inicio/clientes';
 $route['productos'] = 'inicio/productos';
+$route['cedis'] = 'inicio/cedis';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
