@@ -1,4 +1,5 @@
 <!-- NUEVO CLIENTE -->
+<?php echo form_open_multipart('Inicio/crea_cliente');?>
 <div class="row">
     <div class="col-md-12">
         <div id="panel-1" class="panel">
@@ -18,24 +19,24 @@
                             <div class="row m-t-20">
                                 <div class="col-md-8">
                                     <label for="">Nombre:</label>
-                                    <input type="text" name="nombre" class="form-control" autocomplete="off"  maxlength="150">
+                                    <input type="text" required name="nombre" class="form-control" autocomplete="off"  maxlength="150">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">E-mail:</label>
                                     <input type="text" class="form-control" name="email" autocomplete="off"  maxlength="18">
+                                </div>
+                                <div class="col-md-1" style="display:none">
+                                    <label for="">Fecha de Ingreso:</label>
+                                    <input type="date" name="fecha_registro" value="<?php echo date("Y-m-d");?>" class="form-control">
                                 </div>
                             </div>
                             <div class="row m-t-20">
                                 <h5>Domicilio de entrega</h5>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-5">
-                                    <label for="">Calle:</label>
-                                    <input type="text" name="calle" class="form-control">
-                                </div>
-                                <div class="col-md-1">
-                                    <label for="">Número:</label>
-                                    <input type="text" name="numero" class="form-control">
+                                <div class="col-md-6">
+                                    <label for="">Calle y Número:</label>
+                                    <input type="text" name="direccion" class="form-control">
                                 </div>
                                 <div class="col-md-3">
                                     <label for="">Colonia:</label>   

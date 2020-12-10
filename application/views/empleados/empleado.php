@@ -1,4 +1,5 @@
 <!-- NUEVO EMPLEADO -->
+<?php echo form_open_multipart('Inicio/crea_empleado');?>
 <div class="row">
     <div class="col-md-12">
         <div id="panel-1" class="panel">
@@ -76,7 +77,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">Fecha de Ingreso:</label>
-                                    <input type="date" name="fecha_ingreso" class="form-control">
+                                    <input type="date" name="fecha_ingreso" value="<?php echo date("Y-m-d");?>" class="form-control">
                                 </div>
                             </div>
                             <div class="row m-t-20">

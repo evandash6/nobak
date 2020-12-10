@@ -1,4 +1,5 @@
  <!-- NUEVO CEDIS -->
+ <?php echo form_open_multipart('Inicio/crea_cedis');?>
 <div class="row">
     <div class="col-md-12">
         <div id="panel-1" class="panel">
@@ -16,44 +17,47 @@
                                 <h5>CeDis</h5>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <label for="">Nombre:</label>
-                                    <input type="text" name="nombre" class="form-control" autocomplete="off"  maxlength="150">
+                                    <input type="text" required name="cedis" class="form-control" autocomplete="off"  maxlength="150">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="">Tipo:</label>
+                                    <select type="text" name="tipo_cedis" placeholder="Seleccione tipo de CeDis" class="form-control">
+                                        <option value="1">tipo1</option>
+                                        <option value="2">tipo2</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">CDL:</label>
-                                    <input type="text" class="form-control" name="email" autocomplete="off"  maxlength="18">
+                                    <input type="text" class="form-control" name="cdl" autocomplete="off"  maxlength="18">
+                                </div>
+                                <div class="col-md-1" style="display:none">
+                                    <label for="">Fecha de creacion:</label>
+                                    <input type="date" name="fecha_creacion" value="<?php echo date("Y-m-d");?>" class="form-control">
                                 </div>
                             </div>
                             <div class="row m-t-20">
                                 <h5>Domicilio </h5>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-5">
-                                    <label for="">Calle:</label>
-                                    <input type="text" name="calle" class="form-control">
+                                <div class="col-md-6">
+                                    <label for="">Calle y número:</label>
+                                    <input type="text" required name="direccion" class="form-control">
                                 </div>
-                                <div class="col-md-1">
-                                    <label for="">Número:</label>
-                                    <input type="text" name="numero" class="form-control">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="">Colonia:</label>   
-                                    <input type="text" name="colonia" class="form-control" maxlength="50" >
-                                </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label for="">E-mail:</label>   
                                     <input type="text" name="email" class="form-control" maxlength="20" >
                                 </div>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-6">
-                                    <label for="">Municipio:</label>
-                                    <input type="text" name="municipio" class="form-control" autocomplete="off"  maxlength="50">
-                                </div>
                                 <div class="col-md-4">
                                     <label for="">Teléfono :</label>
                                     <input type="text" name="telefono" class="form-control" autocomplete="off"  maxlength="15">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="">Contacto :</label>
+                                    <input type="text" name="contacto" class="form-control" autocomplete="off"  maxlength="15">
                                 </div>
                             </div> 
                     <div class="row m-t-20">
