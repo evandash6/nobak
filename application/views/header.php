@@ -12,7 +12,7 @@
         <link rel="stylesheet" media="screen, print" href="<?=base_url()?>frontend/css/vendors.bundle.min.css">
         <link rel="stylesheet" media="screen, print" href="<?=base_url()?>frontend/css/app.bundle.min.css">
         <link rel="stylesheet" href="<?=base_url()?>frontend/css/propio.css">
-        <script src="https://kit.fontawesome.com/7898ee300d.js" crossorigin="anonymous"></script>
+        <script defer src="<?=base_url()?>frontend/js/all.js"></script>
         <!-- Tabulator -->
         <link rel="stylesheet" href="<?=base_url()?>frontend/css/tabulator_propio.css">
         <script type="text/javascript" src="<?=base_url()?>frontend/js/tabulator.min.js"></script>
