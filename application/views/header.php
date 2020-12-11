@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="msapplication-tap-highlight" content="no">
-        <link rel="icon" type="image/png" href="<?=base_url()?>frontend/images/logo.png">
+        <link rel="icon" type="image/png" href="<?=base_url()?>frontend/images/brillosos.png">
         <link rel="stylesheet" media="screen, print" href="<?=base_url()?>frontend/css/vendors.bundle.min.css">
         <link rel="stylesheet" media="screen, print" href="<?=base_url()?>frontend/css/app.bundle.min.css">
         <link rel="stylesheet" href="<?=base_url()?>frontend/css/propio.css">
@@ -33,5 +33,5 @@
     <script src="<?=base_url()?>frontend/js/app.bundle.min.js"></script>
     <!-- <script type="text/javascript" src="<=base_url()?>frontend/js/jquery.mask.js"></script> -->
     <div class="page-wrapper"><div class="page-inner">
-    <aside class="page-sidebar"><div class="page-logo"> <img src="<?=base_url()?>frontend/images/logo.png" class="img img-fluid" alt="Olimpoos WebApp"> <span class="page-logo-text mr-1"> NOBAK </span> </div><nav id="js-primary-nav" class="primary-nav" role="navigation"> <div class="nav-filter"> <div class="position-relative"> <input type="text" id="nav_filter_input" placeholder="Filter menu" class="form-control" tabindex="0"> <a href="#" onclick="return false;" class="btn-primary btn-search-close js-waves-off" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar"> <i class="fal fa-chevron-up"></i> </a> </div></div>
+    <aside class="page-sidebar"><div class="page-logo"> <img src="<?=base_url()?>frontend/images/brillosos.png" class="img img-fluid" alt="Olimpoos WebApp">  </div><nav id="js-primary-nav" class="primary-nav" role="navigation"> <div class="nav-filter"> <div class="position-relative"> <input type="text" id="nav_filter_input" placeholder="Filter menu" class="form-control" tabindex="0"> <a href="#" onclick="return false;" class="btn-primary btn-search-close js-waves-off" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar"> <i class="fal fa-chevron-up"></i> </a> </div></div>
                     

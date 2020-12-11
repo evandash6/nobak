@@ -1,4 +1,5 @@
 <!-- NUEVO PRODUCTO -->
+<?php echo form_open_multipart('Inicio/crea_producto');?>
 <div class="row">
     <div class="col-md-12">
         <div id="panel-1" class="panel">
@@ -11,7 +12,7 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <div class="row">
-                        <div class="col-md-4" style="border-right:1px solid #BBBBBB;height: 750px;vertical-align:middle; padding-right:30px">
+                        <div class="col-md-4" style="border-right:1px solid #BBBBBB;height: 450px;vertical-align:middle; padding-right:30px">
                             <div class="row m-t-20">
                                 <div class="col-md-12">
                                     <img src="<?=base_url()?>frontend/images/user.png" class="img img-fluid" alt="">
@@ -34,30 +35,41 @@
                             <div class="row m-t-20">
                                 <div class="col-md-10">
                                     <label for="">Nombre:</label>
-                                    <input type="text" name="nombre" class="form-control" autocomplete="off" placeholder="Max 150 caracteres" maxlength="150">
+                                    <input type="text" name="nombre" class="form-control" autocomplete="off" maxlength="150">
+                                </div>
+                                <div class="col-md-1" style="display:none">
+                                    <label for="">Fecha de creacion:</label>
+                                    <input type="date" name="fecha_creacion" value="<?php echo date("Y-m-d");?>" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
+                                <div class="col-md-5">
+                                    <label for="">Código:</label>
+                                    <input type="text" name="code" class="form-control" autocomplete="off" maxlength="150">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="">Tipo:</label>
+                                    <select name="tipo" class="form-control" id="">Seleccione un producto</select>
                                 </div>
                             </div>
                             <div class="row m-t-20">
                                 <div class="col-md-10">
                                     <label for="">Descripción</label>
-                                    <textarea name="actividades" cols="30" rows="3" class="form-control" placeholder="Max 600 caracteres" maxlength="600"></textarea>
+                                    <textarea name="descripcion" cols="30" rows="3" class="form-control" maxlength="600"></textarea>
                                 </div>
                             </div>
                             <div class="row m-t-20">
                                 <div class="col-md-5">
-                                    <label for="">Tipo:</label>
-                                    <select name="tipo_producto" class="form-control" id="">Seleccione un producto</select>
+                                    <label for="">Precio $ :</label>
+                                    <input name="precio" class="form-control" >
                                 </div>
-                                <div class="col-md-5">
-                                    <label for="">Precio $:</label>
-                                    <input name="tipo_producto" class="form-control" >
-                                </div>
-                            </div>
-                            <div class="row m-t-20">
                                 <div class="col-md-5">
                                     <label for="">Estatus:</label>
-                                    <select name="tipo_producto" class="form-control" id="">Seleccione un Estatus</select>
+                                    <select name="estatus" class="form-control" id="">Seleccione un Estatus</select>
                                 </div>
+                            </div>
+                            <div class="row m-t-20">
+                                
                             </div>                                     
                         </div>
                     </div>                

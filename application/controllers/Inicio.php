@@ -31,11 +31,8 @@ class Inicio extends CI_Controller {
 		return $data;
 	}
 	public function index(){
-		$data = $this->basicas();
-		$_POST['tabla'] = 'usuarios';
-		//$_POST['condicion'] = "usuario like 'mi%'";
-		$data['datos']=json_encode(json_decode(($this->api->post('all',$_POST)->response)));
-		var_dump($data['datos']);
+		$this->basicas();
+		//echo (date("Y-m-d"));
 		$this->load->view('footer');
 		
 	}
@@ -48,8 +45,8 @@ class Inicio extends CI_Controller {
 	public function crea_empleado(){
 		$nombre=$_POST['nombre'];
 		$fecha_creacion=$_POST['fecha_ingreso'];
-		$_POST['tabla'] = 'usuarios';
-		$_POST['datos'] = array('usuario'=>$nombre,'activo'=>'1','fecha_creacion'=>$fecha_creacion);
+		$_POST['tabla'] = 'empleados';
+		$_POST['datos'] = array('nombre'=>$nombre,'activo'=>'1','fecha_creacion'=>$fecha_creacion);
 		$this->api->post('insertar',$_POST)->response;
 		echo'<script type="text/javascript">
 				alert("Empleado registrado correctamente : ");
@@ -58,7 +55,7 @@ class Inicio extends CI_Controller {
 	}
 	public function usuarios(){
 	    $this->basicas();
-		$_POST['tabla'] = 'usuarios';
+		$_POST['tabla'] = 'empleados';
 		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
 		var_dump($data['datos']);
 		$this->load->view('usuarios/usuario',$data);
@@ -66,13 +63,13 @@ class Inicio extends CI_Controller {
 		$this->load->view('footer');
 	}
 	public function editar_usuario(){
-		$_POST['tabla']='usuarios';
-		$_POST['datos'] = array('usuario' => $_POST['usuario'],'fecha_creacion'=>$_POST['fecha_creacion']);
+		$_POST['tabla']='empleados';
+		$_POST['datos'] = array('nombre' => $_POST['nombre'],'fecha_creacion'=>$_POST['fecha_creacion']);
 		$_POST['condicion'] = array('id'=>$_POST['id']);
 		var_dump( $this->api->post('actualizar', $_POST)->response);
 	}
 	public function eliminar_usuario(){
-		$_POST['tabla']='usuarios';
+		$_POST['tabla']='empleados';
 		$_POST['condicion'] = array('id'=>$_POST['id']);
 		var_dump( $this->api->post('eliminar', $_POST)->response);
 	}
@@ -120,9 +117,43 @@ class Inicio extends CI_Controller {
 	}
 	public function productos(){
 		$data = $this->basicas();
-		$this->load->view('productos/producto');
+		$_POST['tabla'] = 'productos';
+		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
+		var_dump($data['datos']);
+		$this->load->view('productos/producto',$data);
 		$this->load->view('productos/producto_js');
 		$this->load->view('footer');
+	}
+	public function crea_producto(){
+		//$usuario_creador=$_POST['usuario_creador'];
+		//$direccion1=$_POST['direccion1'];
+		//$estatus=$_POST['estatus'];
+		//$tipo=$_POST['tipo'];
+		$code=$_POST['code'];
+		$nombre =$_POST['nombre'];
+		$descripcion=$_POST['descripcion'];
+		$precio=$_POST['precio'];
+		$fecha_creacion=$_POST['fecha_creacion'];
+		$_POST['tabla'] = 'productos';
+		$_POST['datos'] = array('nombre'=>$nombre,'code'=>$code,'descripcion'=>$descripcion,'precio'=>$precio,
+		'fecha_creacion'=>$fecha_creacion);
+		$this->api->post('insertar',$_POST)->response;
+		echo'<script type="text/javascript">
+				alert("Producto registrado correctamente : ");
+				window.location.href="productos";
+			</script>';		
+	}
+	public function editar_producto(){
+		$_POST['tabla']='productos';
+		$_POST['datos'] = array('nombre' => $_POST['nombre'],'fecha_creacion'=>$_POST['fecha_creacion'],'descripcion'=>$_POST['descripcion'],
+								'precio'=>$_POST['precio'],'code'=>$_POST['code']);
+		$_POST['condicion'] = array('id'=>$_POST['id']);
+		var_dump($this->api->post('actualizar', $_POST)->response);
+	}
+	public function eliminar_producto(){
+		$_POST['tabla']='productos';
+		$_POST['condicion'] = array('id'=>$_POST['id']);
+		var_dump( $this->api->post('eliminar', $_POST)->response);
 	}
 	public function cedis(){
 		$this->basicas();

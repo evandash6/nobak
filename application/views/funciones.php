@@ -71,7 +71,7 @@
         x.style.display = "none";
     }
 }
-  function modal_ver(id,usuario,fecha_creacion){
+  function modal_ver(id,nombre,fecha_creacion){
       Swal.fire({
         title: '<strong>Ver Usuario</strong>',
         icon: '',
@@ -81,7 +81,7 @@
           '<input class="form-control" readonly id="fechai_modificada" name="fecha_creacion"value="'+fecha_creacion+'"></div></div>'+
           '<div class="row m-t-10"><div class="col-md-12">' +
           '<label class="form-label" for="Nombre">Nombre:</label>' +
-          '<input class="form-control" readonly name="usuario"value="'+usuario+'"></div></div>'+
+          '<input class="form-control" id="nombre_modificado" readonly name="nombre"value="'+nombre+'"></div></div>'+
           '<div class="row m-t-10 text-right"><div class="col-md-12">' +
           '<button class="btn btn-sm btn-danger btx-cancel">Cancelar</button>' +
           '</div></div>',
@@ -93,7 +93,7 @@
         focusConfirm: false,
       })
   }
-  function modal_editar(id,usuario,fecha_creacion){
+  function modal_editar(id,nombre,fecha_creacion){
       Swal.fire({
         title: '<strong>Editar Usuario</strong>',
         icon: '',
@@ -103,7 +103,7 @@
           '<input class="form-control"  id="fechac_modificada" name="fecha_creacion"value="'+fecha_creacion+'"></div></div>'+
           '<div class="row m-t-10"><div class="col-md-12">' +
           '<label class="form-label" for="Nombre">Nombre:</label>' +
-          '<input class="form-control" id="usuario_modificado" name="usuario"value="'+usuario+'"></div></div>'+
+          '<input class="form-control" id="nombre_modificado" name="nombre"value="'+nombre+'"></div></div>'+
           '<div class="row m-t-10 text-right"><div class="col-md-12">' +
           '<button class="btn btn-sm btn-danger btx-cancel">Cancelar</button><button id="id" ide="'+id+'" style="margin-left:10px" class="btn btn-sm btn-primary btx-modificar">Modificar</button>'+
           '</div></div>',
@@ -159,7 +159,7 @@
         html:
           '<div class="row m-t-10"><div class="col-md-3">' +
           '<label class="form-label" for="fecha_ini">Fecha Registro:</label>' +
-          '<input class="form-control"  id="fechar_modificada" name="fecha_registro"value="'+fecha_registro+'"></div></div>'+
+          '<input class="form-control" readonly id="fechar_modificada" name="fecha_registro"value="'+fecha_registro+'"></div></div>'+
           '<div class="row m-t-10"><div class="col-md-12">' +
           '<label class="form-label" for="Nombre">Nombre:</label>' +
           '<input class="form-control" id="nombre_modificado" name="nombre"value="'+nombre+'"></div></div>'+
@@ -230,7 +230,7 @@
         html:
           '<div class="row m-t-10"><div class="col-md-3">' +
           '<label class="form-label" for="fecha_ini">Fecha de Creación:</label>' +
-          '<input class="form-control"  id="fechac_modificada" name="fecha_creacion"value="'+fecha_creacion+'"></div></div>'+
+          '<input class="form-control" readonly id="fechac_modificada" name="fecha_creacion"value="'+fecha_creacion+'"></div></div>'+
           '<div class="row m-t-10"><div class="col-md-12">' +
           '<label class="form-label" for="Nombre">CeDis:</label>' +
           '<input class="form-control" id="cedis_modificado" name="nombre"value="'+cedis+'"></div></div>'+
@@ -257,6 +257,69 @@
         focusConfirm: false,
       })
   }
+  function modal_ver_producto(id,nombre,fecha_creacion,code,descripcion,precio){
+      Swal.fire({
+        title: '<strong>Ver Producto</strong>',
+        icon: '',
+        html:
+          '<div class="row m-t-10"><div class="col-md-3">' +
+          '<label class="form-label" for="fecha_ini">Fecha de Creación:</label>' +
+          '<input class="form-control" readonly id="fechac_modificada" name="fecha_creacion"value="'+fecha_creacion+'"></div></div>'+
+          '<div class="row m-t-10"><div class="col-md-12">' +
+          '<label class="form-label" for="Nombre">Nombre:</label>' +
+          '<input class="form-control"readonly id="nombre_modificado" name="nombre"value="'+nombre+'"></div></div>'+
+          '<div class="row m-t-10"><div class="col-md-12">' +
+          '<label class="form-label" for="direccion">Código de Producto:</label>' +
+          '<input class="form-control" readonly id="code_modificada" name="code"value="'+code+'"></div></div>'+
+          '<div class="row m-t-10"><div class="col-md-12">' +
+          '<label class="form-label" for="des">Descripcion:</label>' +
+          '<input class="form-control"readonly id="descripcion_modificada" name="descripcion"value="'+descripcion+'"></div></div>'+
+          '<div class="row m-t-10"><div class="col-md-12">' +
+          '<label class="form-label" for="contacto">Precio:</label>' +
+          '<input class="form-control"readonly id="precio_modificado" name="precio"value="'+precio+'"></div></div>'+
+          '<div class="row m-t-10 text-right"><div class="col-md-12">' +
+          '<button class="btn btn-sm btn-danger btx-cancel">Cancelar</button>'+
+          '</div></div>',
+         
+          
+        showCloseButton: false,
+        showCancelButton: false,
+        showConfirmButton: false,
+        focusConfirm: false,
+      })
+  }
+  function modal_editar_producto(id,nombre,fecha_creacion,code,descripcion,precio){
+      Swal.fire({
+        title: '<strong>Editar Producto</strong>',
+        icon: '',
+        html:
+        '<div class="row m-t-10"><div class="col-md-3">' +
+          '<label class="form-label" for="fecha_ini">Fecha de Creación:</label>' +
+          '<input class="form-control" readonly id="fechac_modificada" name="fecha_creacion"value="'+fecha_creacion+'"></div></div>'+
+          '<div class="row m-t-10"><div class="col-md-12">' +
+          '<label class="form-label" for="Nombre">Nombre:</label>' +
+          '<input class="form-control" id="nombre_modificado" name="nombre"value="'+nombre+'"></div></div>'+
+          '<div class="row m-t-10"><div class="col-md-12">' +
+          '<label class="form-label" for="direccion">Código de Producto:</label>' +
+          '<input class="form-control"  id="code_modificado" name="code"value="'+code+'"></div></div>'+
+          '<div class="row m-t-10"><div class="col-md-12">' +
+          '<label class="form-label" for="des">Descripcion:</label>' +
+          '<input class="form-control" id="descripcion_modificada" name="descripcion"value="'+descripcion+'"></div></div>'+
+          '<div class="row m-t-10"><div class="col-md-12">' +
+          '<label class="form-label" for="contacto">Precio:</label>' +
+          '<input class="form-control" id="precio_modificado" name="precio"value="'+precio+'"></div></div>'+
+          '<div class="row m-t-10 text-right"><div class="col-md-12">' +
+          '<button class="btn btn-sm btn-danger btx-cancel">Cancelar</button><button id="id" ide="'+id+'" style="margin-left:10px" class="btn btn-sm btn-primary btx-modificar">Modificar</button>'+
+          '</div></div>',
+         
+          
+        showCloseButton: false,
+        showCancelButton: false,
+        showConfirmButton: false,
+        focusConfirm: false,
+      })
+  }
+  
   function modal_html(titulo,html){
     Swal.fire({
         title: titulo,
