@@ -1,13 +1,24 @@
 <?php
-date_default_timezone_set('America/Mexico_City');
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set('America/Mexico_City');
 
+require APPPATH. '/libraries/restclien.php';
 class Inicio extends CI_Controller {
 
+	private $api;
+
+	//Constructor
 	function __construct(){
 		parent::__construct();
 		$this->load->library('componentes');
-		//$this->load->model('Api_model','AM',true);
+		$this->load->helper(array('form', 'url'));
+
+		$this->api = new RestClient([
+			'base_url' => 'https://apinobak.lamat.pro/api/',
+			
+			'format' => "json"
+		]);
+		//$this->seguridad();
 	}
 	//Carga de componentes basicas
 	private function basicas(){
@@ -20,8 +31,11 @@ class Inicio extends CI_Controller {
 		return $data;
 	}
 	public function index(){
-		$data = $this->basicas();
-		$this->load->view('footer');
+		//$data = $this->basicas();
+		$_POST['tabla'] = 'usuarios';
+		//$_POST['condicion'] = "usuario like 'mi%'";
+		var_dump($this->api->post('all',$_POST)->response);
+		//$this->load->view('footer');
 		
 	}
 	public function empleados(){
