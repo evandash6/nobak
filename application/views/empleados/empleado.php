@@ -31,6 +31,16 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
+                                <div class="col-md-6">
+                                    <label for="">E-mail:</label>
+                                    <input type="text" name="email" class="form-control" autocomplete="off" der="Max 100 caracteres" maxlength="100">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Contraseña:</label>
+                                    <input type="password" autocomplete="off" name="password" class="form-control" maxlength="100">
+                                </div>
+                            </div>
+                            <div class="row m-t-20">
                                 <div class="col-md-3">
                                     <label for="">Fecha de Nacimiento:</label>
                                     <input type="date" name="fecha_nacimiento" class="form-control">
@@ -47,18 +57,15 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <label for="">Teléfono Casa:</label>
                                     <input type="text" name="telefono" class="form-control" autocomplete="off" der="Max 15 caracteres" maxlength="15">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <label for="">Teléfono Celular:</label>
                                     <input type="text" name="celular" class="form-control" autocomplete="off" der="Max 15 caracteres" maxlength="15">
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="">E-mail:</label>
-                                    <input type="text" name="email" class="form-control" autocomplete="off" der="Max 100 caracteres" maxlength="100">
-                                </div>
+                                
                             </div>
                             <div class="row m-t-20">
                                 <h5>Experiendia Laboral</h5>
