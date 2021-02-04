@@ -32,9 +32,38 @@ class Inicio extends CI_Controller {
 	}
 	public function index(){
 		$this->basicas();
-		//echo (date("Y-m-d"));
+		$data['estado'] = $this->crea_select_estado();
+		//var_dump($data);
+		//$this->load->view('prueba',$data);
+		//$this->load->view('prueba_js');
 		$this->load->view('footer');
 		
+	}
+
+	
+	public function crea_select_estado($id = null){
+		$_POST['tabla'] = 'cat_estado';
+		$valores = "<option value=''>Selecciona</option>";
+		$array = $this->api->post('all',$_POST);
+        foreach ($array['data'] as $valor) {
+            if ($id != null && $valor->id == $id)
+               $valores .= "<option selected value='" . $valor->id . "'>" . $valor->nom_ent . "</option>";
+            else
+               $valores .= "<option value='" . $valor->id . "'>" . $valor->nom_ent . "</option>";
+        }
+        return $valores;
+	}
+	public function crea_select($tabla,$id = null){
+		$_POST['tabla'] = $tabla;
+		$valores = "<option value=''>Selecciona</option>";
+		$array = $this->api->post('all',$_POST);
+        foreach ($array['data'] as $valor) {
+            if ($id != null && $valor->id == $id)
+               $valores .= "<option selected value='" . $valor->id . "'>" . $valor->nombre. "</option>";
+            else
+               $valores .= "<option value='" . $valor->id . "'>" . $valor->nombre . "</option>";
+        }
+        return $valores;
 	}
 	public function empleados(){
 		$data = $this->basicas();
@@ -44,9 +73,19 @@ class Inicio extends CI_Controller {
 
 	public function crea_empleado(){
 		$nombre=$_POST['nombre'];
+		$pass=$_POST['password'];
+		$password=password_hash($pass,PASSWORD_BCRYPT);
+		$curp=$_POST['curp'];
+		$fecha_nac=$_POST['fecha_nac'];
+		$puesto=$_POST['puesto'];
+		$domicilio=$_POST['domicilio'];
+		$telefono=$_POST['telefono'];
+		$celular=$_POST['celular'];
+		$email=$_POST['email'];
 		$fecha_creacion=$_POST['fecha_ingreso'];
 		$_POST['tabla'] = 'empleados';
-		$_POST['datos'] = array('nombre'=>$nombre,'activo'=>'1','fecha_creacion'=>$fecha_creacion);
+		$_POST['datos'] = array('nombre'=>$nombre,'telefono'=>$telefono,'celular'=>$celular,'puesto_id'=>$puesto,'email'=>$email,'password'=>$password,'fecha_nac'=>$fecha_nac,'curp'=>$curp,'domicilio'=>$domicilio,
+		'activo'=>'1','fecha_creacion'=>$fecha_creacion);
 		$this->api->post('insertar',$_POST)->response;
 		echo'<script type="text/javascript">
 				alert("Empleado registrado correctamente : ");
@@ -57,7 +96,7 @@ class Inicio extends CI_Controller {
 	    $this->basicas();
 		$_POST['tabla'] = 'empleados';
 		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
-		var_dump($data['datos']);
+		//var_dump($data['datos']);
 		$this->load->view('usuarios/usuario',$data);
 		$this->load->view('usuarios/usuario_js');
 		$this->load->view('footer');
@@ -74,10 +113,10 @@ class Inicio extends CI_Controller {
 		var_dump( $this->api->post('eliminar', $_POST)->response);
 	}
 	public function clientes(){
-	    $this->basicas();
+		$this->basicas();
 		$_POST['tabla'] = 'clientes';
 		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
-		var_dump($data['datos']);
+		$data['estado'] = $this->crea_select_estado();
 		$this->load->view('clientes/cliente',$data);
 		$this->load->view('clientes/cliente_js');
 		$this->load->view('footer');
@@ -90,13 +129,32 @@ class Inicio extends CI_Controller {
 		$email=$_POST['email'];
 		$direccion =$_POST['direccion'];
 		$colonia=$_POST['colonia'];
+		$estado=$_POST['estado'];
 		$cp=$_POST['cp'];
 		$telefono=$_POST['telefono'];
 		$fecha_registro=$_POST['fecha_registro'];
 		$nombre=$_POST['nombre'];
 		$_POST['tabla'] = 'clientes';
-		$_POST['datos'] = array('nombre'=>$nombre,'email'=>$email,'direccion'=>$direccion,'colonia'=>$colonia,
+		$_POST['datos'] = array('nombre'=>$nombre,'email'=>$email,'estado_id'=>$estado,'direccion'=>$direccion,'colonia'=>$colonia,
 		'cp'=>$cp,'telefono'=>$telefono,'fecha_registro'=>$fecha_registro);
+		$res=$this->api->post('insertar',$_POST)->response;
+		$data = json_decode($res,true);
+		//var_dump($data['id_insertado']);
+		//---------Tabla de facturación----------------
+		$cliente_id=$data['id_insertado'];
+		$rfc=$_POST['rfc'];
+		$nombre=$_POST['nombre'];
+		$uso_cfdi=$_POST['uso_cfdi'];
+		$direccionf =$_POST['direccionf'];
+		$coloniaf=$_POST['coloniaf'];
+		$fecha_registro=$_POST['fecha_registro'];
+		$estadof=$_POST['estadof'];
+		$nota=$_POST['nota'];
+		$cpf=$_POST['cpf'];
+		$telefonof=$_POST['telefonof'];
+		$_POST['tabla'] = 'facturacion_clientes';
+		$_POST['datos'] = array('cliente_id'=>$cliente_id,'nombre'=>$nombre,'nota'=>$nota,'rfc'=>$rfc,'uso_cfdi'=>$uso_cfdi,'direccion'=>$direccionf,'colonia'=>$coloniaf,
+		'estado_id'=>$estadof,'cp'=>$cpf,'telefono'=>$telefonof,'fecha_registro'=>$fecha_registro);
 		$this->api->post('insertar',$_POST)->response;
 		echo'<script type="text/javascript">
 				alert("Empleado registrado correctamente : ");
@@ -119,7 +177,8 @@ class Inicio extends CI_Controller {
 		$data = $this->basicas();
 		$_POST['tabla'] = 'productos';
 		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
-		var_dump($data['datos']);
+		//var_dump($data['datos']);
+		$data['categorias'] = $this->crea_select('categorias');
 		$this->load->view('productos/producto',$data);
 		$this->load->view('productos/producto_js');
 		$this->load->view('footer');
@@ -159,7 +218,7 @@ class Inicio extends CI_Controller {
 		$this->basicas();
 		$_POST['tabla'] = 'cedis';
 		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
-		var_dump($data['datos']);
+		//var_dump($data['datos']);
 		$this->load->view('cedis/cedis',$data);
 		$this->load->view('cedis/cedis_js');
 		$this->load->view('footer');

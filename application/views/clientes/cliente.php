@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">E-mail:</label>
-                                    <input type="text" class="form-control" name="email" autocomplete="off"  maxlength="18">
+                                    <input type="email" class="form-control" name="email" autocomplete="off"  maxlength="18">
                                 </div>
                                 <div class="col-md-1" style="display:none">
                                     <label for="">Fecha de Ingreso:</label>
@@ -36,11 +36,11 @@
                             <div class="row m-t-20">
                                 <div class="col-md-6">
                                     <label for="">Calle y Número:</label>
-                                    <input type="text" name="direccion" class="form-control">
+                                    <input type="text" required name="direccion" class="form-control">
                                 </div>
                                 <div class="col-md-3">
                                     <label for="">Colonia:</label>   
-                                    <input type="text" name="colonia" class="form-control" maxlength="50" >
+                                    <input type="text" required name="colonia" class="form-control" maxlength="50" >
                                 </div>
                                 <div class="col-md-3">
                                     <label for="">Código postal:</label>   
@@ -48,36 +48,75 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
+                                <div class="col-md-4">
+                                    <label for="">Estado:</label>
+                                    <select  class="form-control" name="estado" id="estado">
+                                        <option value="">Seleccione un Estado</option>
+                                        <?=$estado?>
+                                    </select>
+                                </div>
                                 <div class="col-md-5">
                                     <label for="">Municipio:</label>
                                     <input type="text" name="municipio" class="form-control" autocomplete="off"  maxlength="50">
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="">Estado:</label>
-                                    <input type="text" name="estado" class="form-control" autocomplete="off"  maxlength="15">
-                                </div>
                                 <div class="col-md-3">
                                     <label for="">Teléfono :</label>
-                                    <input type="text" name="telefono" class="form-control" autocomplete="off"  maxlength="15">
+                                    <input type="text" required name="telefono" class="form-control" autocomplete="off"  maxlength="15">
                                 </div>
                             </div>
-                            <div class="row m-t-20">
-                                <h5>Datos de facturación (Opcional)</h5>
+                            <div class="row m-t-20 col-md-4">
+                                <button class="btn btn-sm btn-success"onclick="ocultar()"> Agregar Datos de facturación (Opcional)</button>
                             </div>
-                            <div class="row m-t-20">
-                                <div class="col-md-6">
-                                    <label for="">RFC:</label>
-                                    <input type="text" name="rfc" class="form-control">
+                            <div id="ocultar" style ="display:none" class="row m-t-10">
+                                <div class="row m-t-20">
+                                    <h5>Datos de facturación (Opcional)</h5>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="">Uso CFDI:</label>
-                                    <input type="text" name="uso" class="form-control">
+                                <div class="row m-t-20">
+                                    <div class="col-md-6">
+                                        <label for="">RFC:</label>
+                                        <input type="text" name="rfc" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="">Uso CFDI:</label>
+                                        <input type="text" name="uso_cfdi" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row m-t-20">
-                                <div class="col-md-12">
-                                    <label for="">Notas:</label>
-                                    <textarea name="notas" cols="30" rows="5" class="form-control"  maxlength="600"></textarea>
+                                <div class="row m-t-20">
+                                    <div class="col-md-6">
+                                        <label for="">Calle y Número:</label>
+                                        <input type="text" name="direccionf" class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="">Colonia:</label>   
+                                        <input type="text" name="coloniaf" class="form-control" maxlength="50" >
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="">Código postal:</label>   
+                                        <input type="text" name="cpf" class="form-control" maxlength="20" >
+                                    </div>
+                                </div>
+                                <div class="row m-t-20">
+                                    <div class="col-md-4">
+                                        <label for="">Estado:</label>
+                                        <select  class="form-control" name="estadof" id="estado">
+                                            <option value="">Seleccione un Estado</option>
+                                            <?=$estado?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="">Municipio:</label>
+                                        <input type="text" name="municipiof" class="form-control" autocomplete="off"  maxlength="50">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="">Teléfono :</label>
+                                        <input type="text" name="telefonof" class="form-control" autocomplete="off"  maxlength="15">
+                                    </div>
+                                </div>
+                                <div class="row m-t-20">
+                                    <div class="col-md-12">
+                                        <label for="">Notas:</label>
+                                        <textarea name="nota" cols="30" rows="5" class="form-control"  maxlength="600"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>

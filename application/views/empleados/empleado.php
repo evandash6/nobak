@@ -19,31 +19,27 @@
                             <div class="row m-t-20">
                                 <div class="col-md-6">
                                     <label for="">Nombre:</label>
-                                    <input type="text" name="nombre" class="form-control" autocomplete="off" der="Max 150 caracteres" maxlength="150">
+                                    <input type="text" name="nombre" required class="form-control" autocomplete="off" der="Max 150 caracteres" maxlength="150">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">CURP:</label>
                                     <input type="text" class="form-control" name="curp" autocomplete="off" der="Max 18 caracteres" maxlength="18">
                                 </div>
-                                <div class="col-md-2">
-                                    <label for="">Edad:</label>
-                                    <input type="text" class="form-control" name="edad" maxlength="2" der="Max 2">
-                                </div>
                             </div>
                             <div class="row m-t-20">
                                 <div class="col-md-6">
                                     <label for="">E-mail:</label>
-                                    <input type="text" name="email" class="form-control" autocomplete="off" der="Max 100 caracteres" maxlength="100">
+                                    <input type="text" name="email" required class="form-control" autocomplete="off" der="Max 100 caracteres" maxlength="100">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="">Contraseña:</label>
-                                    <input type="password" autocomplete="off" name="password" class="form-control" maxlength="100">
+                                    <input type="password" autocomplete="off" required name="password" class="form-control" maxlength="100">
                                 </div>
                             </div>
                             <div class="row m-t-20">
                                 <div class="col-md-3">
                                     <label for="">Fecha de Nacimiento:</label>
-                                    <input type="date" name="fecha_nacimiento" class="form-control">
+                                    <input type="date" required name="fecha_nac" class="form-control">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">Escolaridad:</label>   
@@ -77,9 +73,10 @@
                                 <div class="col-md-8">
                                     <label for="">Puesto a Ocupar:</label>
                                     <select name="puesto" class="form-control">
-                                        <option value="">Administrador</option>
-                                        <option value="">Almacenista</option>
-                                        <option value="">CeDis</option>
+                                        <option value="1">Administrador</option>
+                                        <option value="2">Almacenista</option>
+                                        <option value="3">CeDis</option>
+                                        <option value="4">Otro</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">

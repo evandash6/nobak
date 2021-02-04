@@ -12,7 +12,8 @@
      columns:[ //Define Table Columns
 		{title:"ID Empleado", field:"id",width:150 },
 	 	{title:"Nombre", field:"nombre", width:150},
-	 	{title:"Fecha de alta", field:"fecha_creacion",  width:150},
+         {title:"Fecha de alta", field:"fecha_creacion",  width:150},
+         {title:"E-mail", field:"email",  width:150},
         {title:"Usuario Creador", field:"usuario_creador", width:150},
         {title:"Acciones", formatter:icons, align:"center",width:180},
  	],
