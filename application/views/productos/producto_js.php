@@ -6,16 +6,18 @@
     };
 
  var table = new Tabulator("#productos", {
-    layout:"fitDataFill",
- 	height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
-     columns:[ //Define Table Columns
-	 	{title:"Código", field:"code", width:150},
-	 	{title:"Nombre", field:"nombre",width:150 },
-	 	{title:"Descripción", field:"descripcion", width:150},
-		{title:"Precio", field:"precio", width:150},
-        {title:"Fecha de creacion", field:"fecha_creacion", sorter:"date", width:150},
-        {title:"Acciones", formatter:icons, align:"center",width:180},
+    layout:"fitColumns",
+ 	//height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+    columns:[ //Define Table Columns
+	 	{title:"Código", field:"code",headerFilter:'input', width:80},
+	 	{title:"Nombre", field:"nombre",headerFilter:'input',width:350},
+	 	{title:"Categorias", field:"categoria", headerFilter:'input',width:250},
+		{title:"Precio", field:"precio",headerFilter:'input', width:100},
+        {title:"Fecha de creacion", field:"fecha_creacion",headerFilter:'input', sorter:"date", width:200},
+        {title:"Acciones", formatter:icons, align:"center"},
  	], 
+    pagination:"local",
+    paginationSize:20
 });
 
 table.setData(<?=$datos?>);

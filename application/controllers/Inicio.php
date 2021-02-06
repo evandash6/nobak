@@ -220,7 +220,7 @@ class Inicio extends CI_Controller {
 	}
 	public function productos(){
 		$data = $this->basicas();
-		$_POST['tabla'] = 'productos';
+		$_POST['tabla'] = 'vw_productos_filtro';
 		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
 		//var_dump($data['datos']);
 		$data['categorias'] = $this->crea_select('categorias');
@@ -258,7 +258,7 @@ class Inicio extends CI_Controller {
 		$this->basicas();
 		$condicion = array('id'=>$id);
 		$data['producto']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'productos','condicion'=>$condicion))->response)->data);
-		var_dump($data['producto']);
+		//var_dump($data['producto']);
 		$this->load->view('productos/editar_producto',$data);
 	
 		$this->load->view('footer');

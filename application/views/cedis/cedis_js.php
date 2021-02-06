@@ -5,15 +5,18 @@
                 <div class='eliminar_registro btn btn-danger btn-sm text-white' ide='"+cell.getRow().getData().id+"' id='eliminar' title='Eliminar'><i class='fas fa-trash'></i></div>";
     };
  var table = new Tabulator("#cedis", {
-    layout:"fitDataFill",
- 	height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+    layout:"fitColumns",
+ 	//height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
      columns:[ //Define Table Columns
-	 	{title:"CeDis", field:"cedis", width:150},
-	 	{title:"E-mail", field:"email",width:150 },
-	 	{title:"Contacto", field:"contacto", width:150},
-		 {title:"Telefono", field:"telefono", width:150},
-        {title:"Acciones", formatter:icons, align:"center",width:180},
+	 	{title:"CeDis", field:"cedis", headerFilter:'input',width:150},
+         {title:"Dirección", field:"direccion",headerFilter:'input',width:350 },
+	 	{title:"E-mail", field:"email",headerFilter:'input',width:150 },
+	 	{title:"Contacto", field:"contacto", headerFilter:'input',width:250},
+		 {title:"Telefono", field:"telefono", headerFilter:'input',width:150},
+        {title:"Acciones", formatter:icons, align:"center"},
  	],
+    pagination:"local",
+    paginationSize:20
 });
 table.setData(<?=$datos?>);
 

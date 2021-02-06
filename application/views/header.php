@@ -10,7 +10,7 @@
         <meta name="msapplication-tap-highlight" content="no">
         <link rel="icon" type="image/png" href="<?=base_url()?>frontend/images/brillosos.png">
         <link rel="stylesheet" media="screen, print" href="<?=base_url()?>frontend/css/vendors.bundle.min.css">
-        <link rel="stylesheet" media="screen, print" href="<?=base_url()?>frontend/css/app.bundle.min.css">
+        <link rel="stylesheet" media="screen, print" href="<?=base_url()?>frontend/css/app.bundle.css">
         <link rel="stylesheet" href="<?=base_url()?>frontend/css/propio.css">
         <script defer src="<?=base_url()?>frontend/js/all.js"></script>
         <!-- Tabulator -->

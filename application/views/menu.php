@@ -162,21 +162,6 @@ switch (true) {
                 </a>
             </li>
         </ul>
-    </li>
-    <li class="'.$m_superior_oper.'">
-        <a href="#"><i class="fal fa-puzzle-piece"></i><span class="nav-link-text">Seguimiento</span></a>
-        <ul>
-            <li class="'.$prollos_m.'">
-                <a href="'.base_url().'rollos" title="Seguimiento Clientes" data-filter-tags="seguimiento clientes">
-                    <span class="nav-link-text">Seguimiento Clientes</span>
-                </a>
-            </li>
-            <li class="'.$corte_m.'">
-                <a href="'.base_url().'corte" title="Seguimiento Administrador" data-filter-tags="seguimeinto administrador">
-                    <span class="nav-link-text">Seguimiento Administración</span>
-                </a>
-            </li>
-        </ul>
     </li>';
 ?>
     <ul id="js-nav-menu" class="nav-menu">
@@ -189,18 +174,6 @@ switch (true) {
         <i class="ni ni-chevron-right"></i>
         <i class="ni ni-chevron-right"></i>
     </a>
-    <ul class="list-table m-auto nav-footer-buttons">
-        <li>
-            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Chat">
-                <i class="fal fa-comments"></i>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Llamadas">
-                <i class="fal fa-phone"></i>
-            </a>
-        </li>
-    </ul>
 </div>
 </aside>
 <div class="page-content-wrapper">

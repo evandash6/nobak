@@ -1105,7 +1105,6 @@ html body {
 .page-sidebar {
   color:white;
   background: rgb(42,100,219);
-background: linear-gradient(243deg, rgba(42,100,219,1) 60%, rgba(43,147,99,1) 100%);
   position: relative;
   -webkit-box-flex: 1;
       -ms-flex: 1 0 auto;

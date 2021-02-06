@@ -9,7 +9,7 @@
                     <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Colapsar"></button>
                 </div>
             </div>
-            <div class="panel-container show">
+            <div class="panel-container collapse">
                 <div class="panel-content">
                     <div class="row">
                         <div class="col-md-12" style="padding-left:30px">
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                             <div class="row m-t-20 col-md-4">
-                                <button class="btn btn-sm btn-success"onclick="ocultar()"> Agregar Datos de facturación (Opcional)</button>
+                                <button type="button" class="btn btn-sm btn-success"onclick="ocultar()"> Agregar Datos de facturación (Opcional)</button>
                             </div>
                             <div id="ocultar" style ="display:none" class="row m-t-10">
                                 <div class="row m-t-20">
@@ -136,12 +136,6 @@
 <div class="row">
     <div class="col-md-12">
         <div id="panel-1" class="panel">
-            <div class="panel-hdr">
-                <h2>Lista de Clientes</h2>
-                <div class="panel-toolbar">
-                    <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Colapsar"></button>
-                </div>
-            </div>
             <div class="panel-container show">
                 <div class="panel-content">
                     <div class="row">

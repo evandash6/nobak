@@ -6,16 +6,19 @@
     };
 
 var table = new Tabulator("#clientes", {
-    layout:"fitDataFill",
- 	height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+    layout:"fitColumns",
+ 	//height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
      columns:[ //Define Table Columns
-	 	{title:"Nombre", field:"nombre", width:150},
-	 	{title:"E-mail", field:"email",width:150 },
-	 	{title:"Dirección", field:"direccion", width:150},
-        {title:"CP", field:"cp", width:150},
-        {title:"Telefono", field:"telefono", width:150},
-        {title:"Acciones", formatter:icons, align:"center",width:180},
+        {title:"ID", field:"id", width:60},
+        {title:"Nombre", field:"nombre",headerFilter:'input', width:150},
+	 	{title:"E-mail", field:"email",headerFilter:'input',width:150 },
+	 	{title:"Dirección", field:"direccion", headerFilter:'input',width:150},
+        {title:"CP", field:"cp", headerFilter:'input',width:150},
+        {title:"Telefono", field:"telefono",headerFilter:'input', width:150},
+        {title:"Acciones", formatter:icons, align:"center"},
  	],
+    pagination:"local",
+    paginationSize:20
 });
 
 table.setData(<?=$datos?>);
