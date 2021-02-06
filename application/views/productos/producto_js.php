@@ -22,12 +22,7 @@ table.setData(<?=$datos?>);
 //Boton ver
 $('body').on('click','.ver_registro',function(){
 	let id = $(this).attr('ide');
-    let nombre = $(this).attr('nombre');
-	let fecha_creacion = $(this).attr('fecha_creacion');
-	let code = $(this).attr('code');
-    let descripcion = $(this).attr('descripcion');
-	let precio = $(this).attr('precio');
-    modal_ver_producto(id,nombre,fecha_creacion,code,descripcion,precio);
+    location.href = '<?=base_url()?>inicio/ver_producto/'+id;
 })
 $('body').on('click','.btx-cancel',function(){
     swal.close();
@@ -54,12 +49,7 @@ $('body').on('click','.eliminar_registro',function(){
 //Boton editar
 $('body').on('click','.editar_registro',function(){
     let id = $(this).attr('ide');
-    let nombre = $(this).attr('nombre');
-	let fecha_creacion = $(this).attr('fecha_creacion');
-	let code = $(this).attr('code');
-    let descripcion = $(this).attr('descripcion');
-	let precio = $(this).attr('precio');
-    modal_editar_producto(id,nombre,fecha_creacion,code,descripcion,precio);
+    location.href = '<?=base_url()?>inicio/editar_producto/'+id;
 })
 
 //BTX MODIFICAR

@@ -66,8 +66,12 @@ class Inicio extends CI_Controller {
         return $valores;
 	}
 	public function empleados(){
-		$data = $this->basicas();
-		$this->load->view('empleados/empleado');
+		$this->basicas();
+		$_POST['tabla'] = 'empleados';
+		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
+		//var_dump($data['datos']);
+		$this->load->view('empleados/empleado',$data);
+		$this->load->view('empleados/empleado_js');
 		$this->load->view('footer');
 	}
 
@@ -80,17 +84,42 @@ class Inicio extends CI_Controller {
 		$puesto=$_POST['puesto'];
 		$domicilio=$_POST['domicilio'];
 		$telefono=$_POST['telefono'];
-		$celular=$_POST['celular'];
+		//$celular=$_POST['celular'];
 		$email=$_POST['email'];
 		$fecha_creacion=$_POST['fecha_ingreso'];
 		$_POST['tabla'] = 'empleados';
-		$_POST['datos'] = array('nombre'=>$nombre,'telefono'=>$telefono,'celular'=>$celular,'puesto_id'=>$puesto,'email'=>$email,'password'=>$password,'fecha_nac'=>$fecha_nac,'curp'=>$curp,'domicilio'=>$domicilio,
+		$_POST['datos'] = array('nombre'=>$nombre,'telefono'=>$telefono,'puesto_id'=>$puesto,'email'=>$email,'password'=>$password,'fecha_nac'=>$fecha_nac,'curp'=>$curp,'domicilio'=>$domicilio,
 		'activo'=>'1','fecha_creacion'=>$fecha_creacion);
 		$this->api->post('insertar',$_POST)->response;
-		echo'<script type="text/javascript">
+		 echo'<script type="text/javascript">
 				alert("Empleado registrado correctamente : ");
 				window.location.href="empleados";
-			</script>';		
+			</script>';	 
+	}
+	public function ver_empleado($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['empleado']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'empleados','condicion'=>$condicion))->response)->data);
+		
+		$this->load->view('empleados/ver_empleado',$data);
+		$this->load->view('footer');
+	}
+	public function editar_empleado($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['empleado']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'empleados','condicion'=>$condicion))->response)->data);
+		
+		$this->load->view('empleados/editar_empleado',$data);
+	
+		$this->load->view('footer');
+	}
+	public function actualizar_empleado(){
+		$password=password_hash($_POST['password'],PASSWORD_BCRYPT);
+		$_POST['tabla']='empleados';
+		$_POST['datos'] = array('direccion' => $_POST['direccion'],'telefono' => $_POST['telefono'],'cp' => $_POST['cp'],
+			'colonia' => $_POST['colonia'],'email' => $_POST['email'],'password' => $password);
+		$_POST['condicion'] = array('id'=>$_POST['id']);
+		var_dump( $this->api->post('actualizar', $_POST)->response);
 	}
 	public function usuarios(){
 	    $this->basicas();
@@ -103,7 +132,7 @@ class Inicio extends CI_Controller {
 	}
 	public function editar_usuario(){
 		$_POST['tabla']='empleados';
-		$_POST['datos'] = array('nombre' => $_POST['nombre'],'fecha_creacion'=>$_POST['fecha_creacion']);
+		$_POST['datos'] = array('nombre' => $_POST['nombre']);
 		$_POST['condicion'] = array('id'=>$_POST['id']);
 		var_dump( $this->api->post('actualizar', $_POST)->response);
 	}
@@ -161,10 +190,26 @@ class Inicio extends CI_Controller {
 				window.location.href="clientes";
 			</script>';		
 	}
-	public function editar_cliente(){
+	public function ver_cliente($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['cliente']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'clientes','condicion'=>$condicion))->response)->data);
+		$this->load->view('clientes/ver_cliente',$data);
+		$this->load->view('footer');
+	}
+	public function editar_cliente($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['cliente']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'clientes','condicion'=>$condicion))->response)->data);
+		var_dump($data['cliente']);
+		$this->load->view('clientes/editar_cliente',$data);
+	
+		$this->load->view('footer');
+	}
+	public function actualizar_cliente(){
 		$_POST['tabla']='clientes';
-		$_POST['datos'] = array('nombre' => $_POST['nombre'],'fecha_registro'=>$_POST['fecha_registro'],'direccion'=>$_POST['direccion'],
-								'cp'=>$_POST['cp'],'colonia'=>$_POST['colonia'],'telefono'=>$_POST['telefono'],'email'=>$_POST['email']);
+		$_POST['datos'] = array('nombre' => $_POST['nombre'],'direccion' => $_POST['direccion'],'telefono' => $_POST['telefono'],'cp' => $_POST['cp'],
+			'colonia' => $_POST['colonia'],'email' => $_POST['email']);
 		$_POST['condicion'] = array('id'=>$_POST['id']);
 		var_dump( $this->api->post('actualizar', $_POST)->response);
 	}
@@ -202,10 +247,25 @@ class Inicio extends CI_Controller {
 				window.location.href="productos";
 			</script>';		
 	}
-	public function editar_producto(){
+	public function ver_producto($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['producto']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'productos','condicion'=>$condicion))->response)->data);
+		$this->load->view('productos/ver_producto',$data);
+		$this->load->view('footer');
+	}
+	public function editar_producto($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['producto']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'productos','condicion'=>$condicion))->response)->data);
+		var_dump($data['producto']);
+		$this->load->view('productos/editar_producto',$data);
+	
+		$this->load->view('footer');
+	}
+	public function actualizar_producto(){
 		$_POST['tabla']='productos';
-		$_POST['datos'] = array('nombre' => $_POST['nombre'],'fecha_creacion'=>$_POST['fecha_creacion'],'descripcion'=>$_POST['descripcion'],
-								'precio'=>$_POST['precio'],'code'=>$_POST['code']);
+		$_POST['datos'] = array('nombre' => $_POST['nombre'],'descripcion' => $_POST['descripcion'],'precio' => $_POST['precio']);
 		$_POST['condicion'] = array('id'=>$_POST['id']);
 		var_dump($this->api->post('actualizar', $_POST)->response);
 	}
@@ -231,24 +291,41 @@ class Inicio extends CI_Controller {
 		$email=$_POST['email'];
 		$direccion =$_POST['direccion'];
 		$contacto=$_POST['contacto'];
+		$cdl=$_POST['cdl'];
 		$telefono=$_POST['telefono'];
 		$fecha_creacion=$_POST['fecha_creacion'];
 		$cedis=$_POST['cedis'];
 		$_POST['tabla'] = 'cedis';
 		$_POST['datos'] = array('cedis'=>$cedis,'email'=>$email,'direccion'=>$direccion,
-		'contacto'=>$contacto,'telefono'=>$telefono,'fecha_creacion'=>$fecha_creacion);
+		'contacto'=>$contacto,'telefono'=>$telefono,'cdl'=>$cdl,'fecha_creacion'=>$fecha_creacion);
 		$this->api->post('insertar',$_POST)->response;
 		echo'<script type="text/javascript">
 				alert("CeDis registrado correctamente : ");
 				window.location.href="cedis";
 			</script>';		
 	}
-	public function editar_cedis(){
+	public function ver_cedis($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['cedis']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'cedis','condicion'=>$condicion))->response)->data);
+		$this->load->view('cedis/ver_cedis',$data);
+		$this->load->view('footer');
+	}
+	public function editar_cedis($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['cedis']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'cedis','condicion'=>$condicion))->response)->data);
+		var_dump($data['cedis']);
+		$this->load->view('cedis/editar_cedis',$data);
+	
+		$this->load->view('footer');
+	}
+	public function actualizar_cedis(){
 		$_POST['tabla']='cedis';
-		$_POST['datos'] = array('cedis' => $_POST['cedis'],'fecha_creacion'=>$_POST['fecha_creacion'],'direccion'=>$_POST['direccion'],
-								'contacto'=>$_POST['contacto'],'telefono'=>$_POST['telefono'],'email'=>$_POST['email']);
+		$_POST['datos'] = array('cedis' => $_POST['cedis'],'cdl' => $_POST['cdl'],'telefono' => $_POST['telefono'],
+		'email' => $_POST['email'],'contacto' => $_POST['contacto']);
 		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump( $this->api->post('actualizar', $_POST)->response);
+		var_dump($this->api->post('actualizar', $_POST)->response);
 	}
 	public function eliminar_cedis(){
 		$_POST['tabla']='cedis';

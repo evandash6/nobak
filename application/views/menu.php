@@ -15,7 +15,7 @@ $m_superior_finan = '';
 $configuraciones_m = '';
 $perfiles_m = '';
 $empleados_m = '';
-$usuarios_m = '';
+//$usuarios_m = '';
 $proveedores_m = '';
 $clientes_m = '';
 $prollos_m = '';
@@ -43,13 +43,7 @@ switch (true) {
         $descri_m = 'Módulo para la creación y administración de empleados';
         $m_superior_admin = 'active open';
         break;
-    case strpos($url, 'usuarios') !== false:
-		$usuarios_m = 'active';
-		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Usuarios';
-        $descri_m = 'Módulo para la creación y administración de usuarios';
-        $m_superior_admin = 'active open';
-    break;
+   
     case strpos($url, 'clientes') !== false:
 		$clientes_m = 'active';
 		$fa_icon = 'fal fa-cogs';
@@ -152,11 +146,6 @@ switch (true) {
                 <i class="fal fa-id-badge m-r-10"></i><span class="nav-link-text">Empleados</span>
                 </a>
             </li>
-            <li class="'.$usuarios_m.'">
-                <a href="'.base_url().'usuarios" title="Usuarios" data-filter-tags="usuarios">
-                <i class="fal fa-users m-r-10"></i><span class="nav-link-text">Usuarios</span>
-                </a>
-            </li>    
             <li class="'.$clientes_m.'">
                 <a href="'.base_url().'clientes" title="Clientes" data-filter-tags="clientes">
                 <i class="fal fa-handshake m-r-10"></i><span class="nav-link-text">Clientes</span>

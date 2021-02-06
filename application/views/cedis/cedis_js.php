@@ -20,14 +20,7 @@ table.setData(<?=$datos?>);
 //BOTON VER
 $('body').on('click','.ver_registro',function(){
 	let id = $(this).attr('ide');
-    let cedis = $(this).attr('cedis');
-	let fecha_creacion = $(this).attr('fecha_creacion');
-    let direccion = $(this).attr('direccion');
-    let telefono = $(this).attr('telefono');
-	let contacto = $(this).attr('contacto');
-    let email = $(this).attr('email');
-    
-    modal_ver_cedis(id,cedis,fecha_creacion,direccion,telefono,contacto,email);
+    location.href = '<?=base_url()?>inicio/ver_cedis/'+id;
 })
 $('body').on('click','.btx-cancel',function(){
     swal.close();
@@ -35,39 +28,10 @@ $('body').on('click','.btx-cancel',function(){
 //Boton editar
 $('body').on('click','.editar_registro',function(){
 	let id = $(this).attr('ide');
-    let cedis = $(this).attr('cedis');
-	let fecha_creacion = $(this).attr('fecha_creacion');
-    let direccion = $(this).attr('direccion');
-    let telefono = $(this).attr('telefono');
-	let contacto = $(this).attr('contacto');
-    let email = $(this).attr('email');
-    
-    modal_editar_cedis(id,cedis,fecha_creacion,direccion,telefono,contacto,email);
+    location.href = '<?=base_url()?>inicio/editar_cedis/'+id;
 })
 //BTX MODIFICAR
-$('body').on('click','.btx-modificar',function(e){
-    e.preventDefault();
-    $(this).attr('disabled',true)
-    let id = $(this).attr('ide');
-    let cedis = $("#cedis_modificado").val();
-    let fecha_creacion = $("#fechac_modificada").val();
-    let direccion=$("#direccion_modificada").val();
-    let telefono=$("#telefono_modificado").val();
-    let contacto=$("#contacto_modificado").val();
-    let email=$("#email_modificado").val();
-    console.log(id);
-    $.ajax({
-        type: "POST",
-        url: '<?=base_url()?>inicio/editar_cedis',
-        data: {'id':id,'cedis':cedis, 'fecha_creacion':fecha_creacion,'direccion':direccion,'telefono':telefono,
-                'contacto':contacto,'email':email},
-        success: function (data) {
-			console.log(id,cedis);  
-			console.log(data);
-			alert('','El Cedis ha sido modificado','success','<?=base_url()?>inicio/cedis');
-        }
-    });
-})
+
 //BOTON ELIMINAR
 $('body').on('click','.eliminar_registro',function(){
 	let id = $(this).attr('ide');

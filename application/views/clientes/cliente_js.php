@@ -22,15 +22,7 @@ table.setData(<?=$datos?>);
 //Boton ver
 $('body').on('click','.ver_registro',function(){
 	let id = $(this).attr('ide');
-    let nombre = $(this).attr('nombre');
-	let fecha_registro = $(this).attr('fecha_registro');
-    let direccion = $(this).attr('direccion');
-    let telefono = $(this).attr('telefono');
-	let cp = $(this).attr('cp');
-    let colonia = $(this).attr('colonia');
-    let email = $(this).attr('email');
-    
-    modal_ver_clientes(id,nombre,fecha_registro,direccion,telefono,cp,colonia,email);
+    location.href = '<?=base_url()?>inicio/ver_cliente/'+id;
 })
 $('body').on('click','.btx-cancel',function(){
     swal.close();
@@ -38,19 +30,12 @@ $('body').on('click','.btx-cancel',function(){
 //Boton editar
 $('body').on('click','.editar_registro',function(){
 	let id = $(this).attr('ide');
-    let nombre = $(this).attr('nombre');
-	let fecha_registro = $(this).attr('fecha_registro');
-    let direccion = $(this).attr('direccion');
-    let telefono = $(this).attr('telefono');
-	let cp = $(this).attr('cp');
-    let colonia = $(this).attr('colonia');
-    let email = $(this).attr('email');
-    
-    modal_editar_clientes(id,nombre,fecha_registro,direccion,telefono,cp,colonia,email);
+    location.href = '<?=base_url()?>inicio/editar_cliente/'+id;
 })
 //BTX MODIFICAR
 $('body').on('click','.btx-modificar',function(e){
-    e.preventDefault();
+    alert('','El cliente ha sido modificado','success','<?=base_url()?>inicio/clientes');
+    /* e.preventDefault();
     $(this).attr('disabled',true)
     let id = $(this).attr('ide');
     let nombre = $("#nombre_modificado").val();
@@ -71,7 +56,7 @@ $('body').on('click','.btx-modificar',function(e){
 			console.log(data);
 			alert('','El cliente ha sido modificado','success','<?=base_url()?>inicio/clientes');
         }
-    });
+    }); */
 })
 //BOTON ELIMINAR
 $('body').on('click','.eliminar_registro',function(){

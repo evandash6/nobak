@@ -103,3 +103,27 @@
         </div>
     </div>
 </div>
+<div id="panel-1" class="panel">
+    <div class="panel-hdr">
+        <h2>Lista de Usuarios</h2>
+        <div class="panel-toolbar">
+            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Colapsar"></button>
+        </div>
+    </div>
+    <div class="panel-container show">
+        <div class="panel-content">
+        <section class="content">
+        <!-- Default box -->
+        <div class="box box-solid">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12 m-t-10">
+                    <div class="bg-light text-white" id="usuarios" style="font-size:12px !important"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      
+    </section>
