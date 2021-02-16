@@ -53,6 +53,7 @@ $route['default_controller'] = 'inicio';
 $route['empleados'] = 'inicio/empleados';
 //$route['usuarios'] = 'inicio/usuarios';
 $route['clientes'] = 'inicio/clientes';
+$route['ventas'] = 'inicio/ventas';
 $route['productos'] = 'inicio/productos';
 $route['cedis'] = 'inicio/cedis';
 $route['404_override'] = '';

@@ -48,7 +48,7 @@ switch (true) {
 		$clientes_m = 'active';
 		$fa_icon = 'fal fa-cogs';
         $titulo_m = 'Administración / Clientes';
-        $descri_m = 'Módulo para la creación y administración de clientes';
+        $descri_m = 'Módulo para la administración de clientes';
         $m_superior_admin = 'active open';
     break;
     case strpos($url, 'productos') !== false:
@@ -120,9 +120,9 @@ switch (true) {
     break;
     case strpos($url, 'ventas') !== false:
 		$ventas_m = 'active';
-		$fa_icon = 'fal fa-euro-sign';
+		$fa_icon = 'fas fa-money-bill';
         $titulo_m = 'Ventas';
-        $descri_m = 'Módulo para el registro de ventas a clientes';
+        $descri_m = 'Módulo para ver el registro de ventas a clientes';
         $m_superior_finan = 'active open';
     break;
     case strpos($url, 'caja') !== false:
@@ -162,6 +162,11 @@ switch (true) {
                 </a>
             </li>
         </ul>
+    </li>
+    <li class="'.$ventas_m.'">
+        <a href="'.base_url().'ventas" title="Ventas" data-filter-tags="ventas">
+        <i class="fas fa-cash-register m-r-10"></i><span class="nav-link-text">Ventas</span>
+        </a>
     </li>';
 ?>
     <ul id="js-nav-menu" class="nav-menu">

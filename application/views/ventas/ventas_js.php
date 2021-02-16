@@ -1,17 +1,18 @@
 <script>
  var icons = function(cell, formatterParams){
-        return "<div class='btn btn-success ver_registro btn-sm' ide='"+cell.getRow().getData().id+"' nombre='"+cell.getRow().getData().nombre+"'fecha_registro='"+cell.getRow().getData().fecha_registro+"'direccion='"+cell.getRow().getData().direccion+"'telefono='"+cell.getRow().getData().telefono+"'cp='"+cell.getRow().getData().cp+"'colonia='"+cell.getRow().getData().colonia+"'email='"+cell.getRow().getData().email+"'id='ver' title='Ver'><i class='fas fa-eye'></i></div> ";
+        return "<div class='btn btn-success ver_registro btn-sm' ide='"+cell.getRow().getData().id+"' nombre='"+cell.getRow().getData().nombre+"'fecha_registro='"+cell.getRow().getData().fecha_registro+"'direccion='"+cell.getRow().getData().direccion+"'telefono='"+cell.getRow().getData().telefono+"'cp='"+cell.getRow().getData().cp+"'colonia='"+cell.getRow().getData().colonia+"'email='"+cell.getRow().getData().email+"'id='ver' title='Ver Detalle'><i class='fas fa-eye'></i></div> ";
     };
 
-var table = new Tabulator("#clientes", {
+var table = new Tabulator("#ventas", {
     layout:"fitColumns",
  	//height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
      columns:[ //Define Table Columns
         {title:"ID", field:"id", width:60},
-        {title:"Nombre", field:"nombre",headerFilter:'input', width:250},
+        {title:"Folio", field:"folio",headerFilter:'input', width:250},
 	 	{title:"E-mail", field:"email",headerFilter:'input',width:200 },
-	 	{title:"Ultimo Acceso", field:"ultimo_acceso", headerFilter:'input',width:150},
-        {title:"Fecha de Registro", field:"fecha_registro", headerFilter:'input',width:150},
+        {title:"IVA", field:"iva_incluido", headerFilter:'input',width:80},
+        {title:"Subtotal", field:"subtotal", headerFilter:'input',width:120},
+	 	{title:"Fecha de Compra", field:"fecha_compra", headerFilter:'input',width:150},
         {title:"Acciones", formatter:icons, align:"center"},
  	],
     pagination:"local",
@@ -22,7 +23,7 @@ table.setData(<?=$datos?>);
 //Boton ver
 $('body').on('click','.ver_registro',function(){
 	let id = $(this).attr('ide');
-    location.href = '<?=base_url()?>inicio/ver_cliente/'+id;
+    location.href = '<?=base_url()?>inicio/ver_venta/'+id;
 })
 $('body').on('click','.btx-cancel',function(){
     swal.close();

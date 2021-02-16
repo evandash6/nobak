@@ -131,7 +131,7 @@
         success: function (data) {
 			console.log(id);  
 			console.log(data);
-			alert('','El cliente ha sido modificado','success','<?=base_url()?>inicio/clientes');
+			alert('','El cliente ha sido modificado','success','<?=base_url()?>inicio/empleados');
         }
     }); 
 })

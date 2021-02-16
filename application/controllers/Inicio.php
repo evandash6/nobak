@@ -141,15 +141,31 @@ class Inicio extends CI_Controller {
 		$_POST['condicion'] = array('id'=>$_POST['id']);
 		var_dump( $this->api->post('eliminar', $_POST)->response);
 	}
+	public function ventas(){
+		$this->basicas();
+		$_POST['tabla'] = 'ventas';
+		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
+		$this->load->view('ventas/ventas',$data);
+		$this->load->view('ventas/ventas_js');
+		$this->load->view('footer');
+	}
+	public function ver_venta($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['venta']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'ventas','condicion'=>$condicion))->response)->data);
+		$this->load->view('ventas/ver_venta',$data);
+		$this->load->view('footer');
+	}
 	public function clientes(){
 		$this->basicas();
-		$_POST['tabla'] = 'clientes';
+		$_POST['tabla'] = 'clientes_actualizada';
 		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
 		$data['estado'] = $this->crea_select_estado();
 		$this->load->view('clientes/cliente',$data);
 		$this->load->view('clientes/cliente_js');
 		$this->load->view('footer');
 	}
+	
 	public function crea_cliente(){
 		//$ultimo_acceso=$_POST['ultimo_acceso'];
 		//$direccion1=$_POST['direccion1'];
@@ -193,7 +209,7 @@ class Inicio extends CI_Controller {
 	public function ver_cliente($id){
 		$this->basicas();
 		$condicion = array('id'=>$id);
-		$data['cliente']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'clientes','condicion'=>$condicion))->response)->data);
+		$data['cliente']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'clientes_actualizada','condicion'=>$condicion))->response)->data);
 		$this->load->view('clientes/ver_cliente',$data);
 		$this->load->view('footer');
 	}

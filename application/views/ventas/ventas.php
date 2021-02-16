@@ -7,7 +7,7 @@
                 <div class="panel-content">
                     <div class="row">
                         <div class="col-md-12 m-t-10">
-                            <div class="bg-light text-white" id="clientes" style="font-size:12px !important">
+                            <div class="bg-light text-white" id="ventas" style="font-size:12px !important">
                             </div>
                         </div>
                     </div>
