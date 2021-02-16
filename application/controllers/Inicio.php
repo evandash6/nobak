@@ -151,8 +151,8 @@ class Inicio extends CI_Controller {
 	}
 	public function ver_venta($id){
 		$this->basicas();
-		$condicion = array('id'=>$id);
-		$data['venta']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'ventas','condicion'=>$condicion))->response)->data);
+		$condicion = array('venta_id'=>$id);
+		$data['venta']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'vw_detalle_ventas','condicion'=>$condicion))->response)->data);
 		$this->load->view('ventas/ver_venta',$data);
 		$this->load->view('footer');
 	}

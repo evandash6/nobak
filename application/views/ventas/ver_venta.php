@@ -28,13 +28,25 @@
                                 <h5>Detalle </h5>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-6">
+                                <div class="col-md-1">
                                     <label for="">Cantidad:</label>
                                     <input type="text" required name="cantidad" class="form-control">
                                 </div>
                                 <div class="col-md-4">
                                     <label for="">Producto:</label>   
                                     <input type="text" name="producto" class="form-control" maxlength="20" >
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="">Precio $:</label>   
+                                    <input type="text" name="precio" class="form-control" maxlength="20" >
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">I.V.A $:</label>   
+                                    <input type="text" name="iva" class="form-control" maxlength="20" >
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="">Subtotal $:</label>   
+                                    <input type="text" name="subtotal" class="form-control" maxlength="20" >
                                 </div>
                             </div>
                     <div class="row m-t-20">
