@@ -18,6 +18,8 @@ $empleados_m = '';
 //$usuarios_m = '';
 $proveedores_m = '';
 $clientes_m = '';
+$entrega_m = '';
+$pago_m = '';
 $prollos_m = '';
 $corte_m = '';
 $maquila_m = '';
@@ -63,6 +65,13 @@ switch (true) {
 		$fa_icon = 'fal fa-cogs';
         $titulo_m = 'Administración / Cedis';
         $descri_m = 'Módulo para la creación y administración de Centros de distribución';
+        $m_superior_admin = 'active open';
+    break;
+    case strpos($url, 'pagos') !== false:
+		$pago_m = 'active';
+		$fa_icon = 'fal fa-cogs';
+        $titulo_m = 'Administración / Formas de Pago';
+        $descri_m = 'Módulo para la creación y administración de Formas de pago';
         $m_superior_admin = 'active open';
     break;
     /////////////// Seguimiento //////////////
@@ -159,6 +168,11 @@ switch (true) {
             <li class="'.$cedis_m.'">
                 <a href="'.base_url().'cedis" title="Cedis" data-filter-tags="cedis">
                 <i class="fal fa-building m-r-10"></i><span class="nav-link-text">CeDis</span>
+                </a>
+            </li>
+            <li class="'.$pago_m.'">
+                <a href="'.base_url().'pagos" title="Formas de Pago" data-filter-tags="pagos">
+                <i class="fas fa-money-bill m-r-10"></i><span class="nav-link-text">Formas de Pago</span>
                 </a>
             </li>
         </ul>
