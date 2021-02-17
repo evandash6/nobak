@@ -363,7 +363,7 @@ class Inicio extends CI_Controller {
 		//$direccion1=$_POST['direccion1'];
 		//$estatus=$_POST['estatus'];
 		//$tipo=$_POST['tipo'];
-		$file = $this->carga_archivo('foto_producto',4000,'jpg','./frontend/productos/','jpg');
+		$file = $this->carga_archivo('foto_producto',4000,'gif|jpg|png','./frontend/productos/','jpg');
 		if($file['ban']){
 		$_POST['fotografia_name'] = $file['file_name'];
 		$code=$_POST['code'];

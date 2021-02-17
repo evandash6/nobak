@@ -34,7 +34,7 @@
                             <div class="row m-t-20">
                                 <div class="col-md-10">
                                     <label for="">Nombre:</label>
-                                    <input type="text" name="nombre" class="form-control" autocomplete="off" maxlength="150">
+                                    <input required type="text" name="nombre" class="form-control" autocomplete="off" maxlength="150">
                                 </div>
                                 <div class="col-md-1" style="display:none">
                                     <label for="">Fecha de creacion:</label>
@@ -44,7 +44,7 @@
                             <div class="row m-t-20">
                                 <div class="col-md-5">
                                     <label for="">Código:</label>
-                                    <input type="text" name="code" class="form-control" autocomplete="off" maxlength="150">
+                                    <input type="text" required name="code" class="form-control" autocomplete="off" maxlength="150">
                                 </div>
                                 <div class="col-md-5">
                                     <label for="">Categoria:</label>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="col-md-5">
                                     <label for="">Estatus:</label>
-                                    <select name="activo" class="form-control" id="">
+                                    <select required name="activo" class="form-control" id="">
                                     <option value=""> Seleccione un Estatus</option>
                                      <option value="1">Activo</option>
                                      <option value="0">Inactivo</option>
