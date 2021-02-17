@@ -13,12 +13,11 @@
                         <div class="col-md-4" style="border-right:1px solid #BBBBBB;height: 450px;vertical-align:middle; padding-right:30px">
                             <div class="row m-t-20">
                                 <div class="col-md-12">
-                                    <img src="<?=base_url()?>frontend/images/user.png" class="img img-fluid" alt="">
+                                    <img name="img_producto" src="<?=base_url()?>frontend/images/user.png" class="img img-fluid" alt="">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label class="form-label m-t-20">Foto:</label>
                                     <div class="custom-file">
                                         <input type="text" class="custom-file-input" id="archivo">
                                     </div>
@@ -61,13 +60,6 @@
                                     <label for="">Precio $ :</label>
                                     <input id="precio_modificado"name="precio" class="form-control" >
                                 </div>
-                                <div class="col-md-5">
-                                    <label for="">Estatus:</label>
-                                    <select name="activo" class="form-control" id="activo_modificado">
-                                    <option value="1"> Activo</option>
-                                     <option value="0">Inactivo</option>
-                                    </select>
-                                </div>
                             </div>
                             <div class="row m-t-20">
                                 
@@ -76,7 +68,7 @@
                     </div>                
                     <div class="row m-t-20">
                         <div class="col-md-12 text-right">
-                        <button  onclick="location.href ='<?=base_url()?>clientes'"  class="btn btn-danger waves-effect waves-themed"><i class="fa fa-reply m-r-5"></i> Regresar</button>
+                        <button  onclick="location.href ='<?=base_url()?>productos'"  class="btn btn-danger waves-effect waves-themed"><i class="fa fa-reply m-r-5"></i> Regresar</button>
                         <button id="id" ide="'+id+'" style="margin-left:10px" class="btn btn-sm btn-primary btx-modificar">Modificar</button>
                           </div>
                     </div>
@@ -88,6 +80,7 @@
 <script>
     $(document).ready(function(){
         let valores =<?=$producto?>[0];
+        console.log(valores);
         $('input').each(function(){
             $(this).val(valores[$(this).attr('name')])
           
@@ -100,6 +93,10 @@
             $(this).val(valores[$(this).attr('name')])
            
         })
+        if(valores.fotografia_name != null){
+            $('img[name=img_producto]').attr('src','<?=base_url()?>frontend/productos/'+valores.fotografia_name+'.jpg')
+            
+        }
     })
     $('body').on('click','.btx-modificar',function(e){
     e.preventDefault();

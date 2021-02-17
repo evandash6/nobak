@@ -200,19 +200,27 @@ class Inicio extends CI_Controller {
 		$this->load->view('footer');
 	}
 	public function crea_pago(){
+		$file = $this->carga_archivo('foto_pago',4000,'gif|jpg|png','./frontend/forma_pago/','jpg');
+		if($file['ban']){
+		$_POST['imagen'] = $file['file_name'];
 		$titulo=$_POST['titulo'];
 		$costo =$_POST['costo'];
 		$descripcion=$_POST['descripcion'];
 		$mensaje_email=$_POST['mensaje_email'];
 		$fecha_creacion=$_POST['fecha_creacion'];
+		$imagen=$_POST['imagen'];
 		$_POST['tabla'] = 'formas_pago';
 		$_POST['datos'] = array('titulo'=>$titulo,'costo'=>$costo,'descripcion'=>$descripcion,
-		'mensaje_email'=>$mensaje_email,'fecha_creacion'=>$fecha_creacion);
+		'mensaje_email'=>$mensaje_email,'fecha_creacion'=>$fecha_creacion,'imagen'=>$imagen);
 		$this->api->post('insertar',$_POST)->response;
 		echo'<script type="text/javascript">
 				alert("Forma de Pago registrada correctamente : ");
-				window.location.href="pagos";
-			</script>';		
+				window.location.href="pago";
+			</script>';
+		}else	echo'<script type="text/javascript">
+		alert("ERROR Forma de Pago no registrada : ");
+		window.location.href="pago";
+		</script>';	
 	}
 	public function ver_pago($id){
 		$this->basicas();

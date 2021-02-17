@@ -13,16 +13,15 @@
                         <div class="col-md-4" style="border-right:1px solid #BBBBBB;height: 450px;vertical-align:middle; padding-right:30px">
                             <div class="row m-t-20">
                                 <div class="col-md-12">
-                                    <img src="<?=base_url()?>frontend/images/user.png" class="img img-fluid" alt="">
+                                    <img name="img_pago" src="<?=base_url()?>frontend/images/user.png" class="img img-fluid" alt="">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                 <input type="text" style="display:none;" id ="id"name="id" >
-                                    <label class="form-label m-t-20">Imagen:</label>
+                                   
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="archivo_modificado">
-                                        <label class="custom-file-label" for="customFile">Elegir Archivo</label>
+                                     
                                     </div>
                                 </div>
                             </div>
@@ -84,6 +83,9 @@
             $(this).val(valores[$(this).attr('name')])
             
         })
+        if(valores.imagen != null){
+            $('img[name=img_pago]').attr('src','<?=base_url()?>frontend/forma_pago/'+valores.imagen+'.jpg')
+            }
     })
     $('body').on('click','.btx-modificar',function(e){
     e.preventDefault();
