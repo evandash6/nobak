@@ -345,24 +345,47 @@ class Inicio extends CI_Controller {
 		$this->load->view('productos/producto_js');
 		$this->load->view('footer');
 	}
+	private function carga_archivo($nombre,$tam,$tipo,$path,$acro){
+		$config['upload_path'] = $path;
+        $config['allowed_types'] = $tipo;
+        $config['max_size'] = $tam;
+		$config['file_name'] = $acro.'_'.md5(date('Y-m-d h:i:s'));
+		
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		if($this->upload->do_upload($nombre))
+			return array('ban'=>true,'file_name'=>$config['file_name']);
+		else
+			return array('ban'=>false);
+	}
 	public function crea_producto(){
 		//$usuario_creador=$_POST['usuario_creador'];
 		//$direccion1=$_POST['direccion1'];
 		//$estatus=$_POST['estatus'];
 		//$tipo=$_POST['tipo'];
+		$file = $this->carga_archivo('foto_producto',4000,'jpg','./frontend/productos/','jpg');
+		if($file['ban']){
+		$_POST['fotografia_name'] = $file['file_name'];
 		$code=$_POST['code'];
 		$nombre =$_POST['nombre'];
 		$descripcion=$_POST['descripcion'];
 		$precio=$_POST['precio'];
+		$activo=$_POST['activo'];
+		$categoria=$_POST['categoria'];
 		$fecha_creacion=$_POST['fecha_creacion'];
+		$fotografía_name=$_POST['fotografia_name'];
 		$_POST['tabla'] = 'productos';
-		$_POST['datos'] = array('nombre'=>$nombre,'code'=>$code,'descripcion'=>$descripcion,'precio'=>$precio,
-		'fecha_creacion'=>$fecha_creacion);
+		$_POST['datos'] = array('nombre'=>$nombre,'code'=>$code,'activo'=>$activo,'categoria'=>$categoria,'descripcion'=>$descripcion,'precio'=>$precio,
+		'fotografia_name'=>$fotografía_name, 'fecha_creacion'=>$fecha_creacion);
 		$this->api->post('insertar',$_POST)->response;
 		echo'<script type="text/javascript">
 				alert("Producto registrado correctamente : ");
 				window.location.href="productos";
-			</script>';		
+			</script>';
+		}else 	echo'<script type="text/javascript">
+		alert("Producto No registrado: ");
+		window.location.href="productos";
+	</script>';	
 	}
 	public function ver_producto($id){
 		$this->basicas();

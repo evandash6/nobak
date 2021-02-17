@@ -10,10 +10,10 @@
  	//height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
     columns:[ //Define Table Columns
 	 	{title:"Código", field:"code",headerFilter:'input', width:80},
-	 	{title:"Nombre", field:"nombre",headerFilter:'input',width:350},
+	 	{title:"Nombre", field:"nombre",headerFilter:'input',width:250},
 	 	{title:"Categorias", field:"categoria", headerFilter:'input',width:250},
 		{title:"Precio", field:"precio",headerFilter:'input', width:100},
-        {title:"Fecha de creacion", field:"fecha_creacion",headerFilter:'input', sorter:"date", width:200},
+        {title:"Fecha de creacion", field:"fecha_creacion",headerFilter:'input', sorter:"date", width:150},
         {title:"Acciones", formatter:icons, align:"center"},
  	], 
     pagination:"local",

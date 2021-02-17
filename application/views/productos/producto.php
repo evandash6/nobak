@@ -22,7 +22,7 @@
                                 <div class="col-md-12">
                                     <label class="form-label m-t-20">Foto:</label>
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="archivo">
+                                        <input type="file" class="custom-file-input" name="foto_producto" id="foto_producto">
                                         <label class="custom-file-label" for="customFile">Elegir Archivo</label>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="col-md-5">
                                     <label for="">Categoria:</label>
-                                    <select name="tipo" class="form-control" id=""><option value="0">Seleccione una Categoria </option>
+                                    <select name="categoria" class="form-control" id="categoria"><option value="0">Seleccione una Categoria </option>
                                        <?=$categorias?> 
                                     </select>
                                 </div>
@@ -67,10 +67,10 @@
                                 </div>
                                 <div class="col-md-5">
                                     <label for="">Estatus:</label>
-                                    <select name="estatus" class="form-control" id="">
+                                    <select name="activo" class="form-control" id="">
                                     <option value=""> Seleccione un Estatus</option>
-                                     <option value="1">Disponible</option>
-                                     <option value="2">Agotado</option>
+                                     <option value="1">Activo</option>
+                                     <option value="0">Inactivo</option>
                                     </select>
                                 </div>
                             </div>
