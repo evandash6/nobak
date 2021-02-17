@@ -385,19 +385,19 @@ class Inicio extends CI_Controller {
 		}else 	echo'<script type="text/javascript">
 		alert("Producto No registrado: ");
 		window.location.href="productos";
-	</script>';	
+		</script>';	
 	}
 	public function ver_producto($id){
 		$this->basicas();
 		$condicion = array('id'=>$id);
-		$data['producto']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'productos','condicion'=>$condicion))->response)->data);
+		$data['producto']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'vw_productos_filtro','condicion'=>$condicion))->response)->data);
 		$this->load->view('productos/ver_producto',$data);
 		$this->load->view('footer');
 	}
 	public function editar_producto($id){
 		$this->basicas();
 		$condicion = array('id'=>$id);
-		$data['producto']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'productos','condicion'=>$condicion))->response)->data);
+		$data['producto']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'vw_productos_filtro','condicion'=>$condicion))->response)->data);
 		//var_dump($data['producto']);
 		$this->load->view('productos/editar_producto',$data);
 	
@@ -405,7 +405,8 @@ class Inicio extends CI_Controller {
 	}
 	public function actualizar_producto(){
 		$_POST['tabla']='productos';
-		$_POST['datos'] = array('nombre' => $_POST['nombre'],'descripcion' => $_POST['descripcion'],'precio' => $_POST['precio']);
+		$_POST['datos'] = array('nombre' => $_POST['nombre'],'descripcion' => $_POST['descripcion'],
+		'precio' => $_POST['precio'],'activo' => $_POST['activo']);
 		$_POST['condicion'] = array('id'=>$_POST['id']);
 		var_dump($this->api->post('actualizar', $_POST)->response);
 	}

@@ -20,8 +20,7 @@
                                 <div class="col-md-12">
                                     <label class="form-label m-t-20">Foto:</label>
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="archivo">
-                                        <label class="custom-file-label" for="customFile">Elegir Archivo</label>
+                                        <input type="text" class="custom-file-input" id="archivo">
                                     </div>
                                 </div>
                             </div>
@@ -48,9 +47,7 @@
                                 </div>
                                 <div class="col-md-5">
                                     <label for="">Categoria:</label>
-                                    <select name="tipo" readonly class="form-control" id=""><option value="0">Seleccione una Categoria </option>
-                                       <?=$categorias?> 
-                                    </select>
+                                    <input type="text" readonly name="categoria" class="form-control" autocomplete="off" maxlength="150">
                                 </div>
                             </div>
                             <div class="row m-t-20">
@@ -66,10 +63,9 @@
                                 </div>
                                 <div class="col-md-5">
                                     <label for="">Estatus:</label>
-                                    <select name="estatus" class="form-control" id="estatus_modificado">
-                                    <option value=""> Seleccione un Estatus</option>
-                                     <option value="1">Disponible</option>
-                                     <option value="2">Agotado</option>
+                                    <select name="activo" class="form-control" id="activo_modificado">
+                                    <option value="1"> Activo</option>
+                                     <option value="0">Inactivo</option>
                                     </select>
                                 </div>
                             </div>
@@ -110,14 +106,15 @@
     $(this).attr('disabled',true)
     let id = $("#id").val();
     let nombre = $("#nombre_modificado").val();
-     let descripcion = $("#descripcion_modificada").val();
+    let descripcion = $("#descripcion_modificada").val();
     let precio = $("#precio_modificado").val();
+    let activo = $("#activo_modificado").val();
     //let estatus = $("#estatus_modificado").val(); 
 	console.log(id);
     $.ajax({
         type: "POST",
         url: '<?=base_url()?>inicio/actualizar_producto',
-        data: {'id':id,'nombre':nombre,'descripcion':descripcion,'precio':precio},
+        data: {'id':id,'nombre':nombre,'descripcion':descripcion,'precio':precio,'activo':activo},
         success: function (data) {
 			console.log(id,nombre);  
 			console.log(data);

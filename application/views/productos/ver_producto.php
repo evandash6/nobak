@@ -49,9 +49,7 @@
                                 </div>
                                 <div class="col-md-5">
                                     <label for="">Categoria:</label>
-                                    <select name="tipo" class="form-control" id=""><option value="0">Seleccione una Categoria </option>
-                                       <?=$categorias?> 
-                                    </select>
+                                    <input type="text" name="categoria" class="form-control" autocomplete="off" maxlength="150">
                                 </div>
                             </div>
                             <div class="row m-t-20">
@@ -64,14 +62,6 @@
                                 <div class="col-md-5">
                                     <label for="">Precio $ :</label>
                                     <input name="precio" class="form-control" >
-                                </div>
-                                <div class="col-md-5">
-                                    <label for="">Estatus:</label>
-                                    <select name="estatus" class="form-control" id="">
-                                    <option value=""> Seleccione un Estatus</option>
-                                     <option value="1">Disponible</option>
-                                     <option value="2">Agotado</option>
-                                    </select>
                                 </div>
                             </div>
                             <div class="row m-t-20">

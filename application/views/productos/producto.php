@@ -15,15 +15,14 @@
                         <div class="col-md-4" style="border-right:1px solid #BBBBBB;height: 450px;vertical-align:middle; padding-right:30px">
                             <div class="row m-t-20">
                                 <div class="col-md-12">
-                                    <img src="<?=base_url()?>frontend/images/user.png" class="img img-fluid" alt="">
+                                <img id="imgSalida"  class="img img-fluid" alt="">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <label class="form-label m-t-20">Foto:</label>
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="foto_producto" id="foto_producto">
-                                        <label class="custom-file-label" for="customFile">Elegir Archivo</label>
+                                    <input type="file" name="foto_producto" id="foto_producto" >
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +80,7 @@
                     </div>                
                     <div class="row m-t-20">
                         <div class="col-md-12 text-right">
-                            <button onclick="location.href =''" class="btn btn-danger waves-effect waves-themed"><i class="fa fa-ban m-r-5"></i> Cancelar</button>
+                            <button type="button" onclick="location.href =''" class="btn btn-danger waves-effect waves-themed"><i class="fa fa-ban m-r-5"></i> Cancelar</button>
                             <button id="btn_guardar_usuario" class="btn btn-success waves-effect waves-themed"><i class="fa fa-save m-r-5"></i> Guardar</button>
                         </div>
                     </div>
@@ -107,3 +106,31 @@
         </div>
     </div>
 </div>
+<script>
+
+
+ $(function() {
+  $('#foto_producto').change(function(e) {
+      addImage(e); 
+     });
+
+     function addImage(e){
+      var file = e.target.files[0],
+      imageType = /image.*/;
+    
+      if (!file.type.match(imageType))
+       return;
+  
+      var reader = new FileReader();
+  
+      reader.onload = function(e){
+         var result=e.target.result;
+        $('#imgSalida').attr("src",result);
+      }
+       
+      reader.readAsDataURL(file);
+     }
+    });
+ 
+
+</script>
