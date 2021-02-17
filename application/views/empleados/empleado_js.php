@@ -11,7 +11,7 @@
         //height:600, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value) //assign data to table
         columns:[ //Define Table Columns
             {title:"ID", field:"id",width:60 },
-            {title:"Nombre EMpleado", field:"nombre",headerFilter:'input', width:250},
+            {title:"Nombre Empleado", field:"nombre",headerFilter:'input', width:250},
             {title:"Fecha de alta", field:"fecha_creacion", headerFilter:'input', width:150},
             {title:"E-mail", field:"email", headerFilter:'input', width:150},
             {title:"Telefono", field:"telefono", headerFilter:'input', width:150},

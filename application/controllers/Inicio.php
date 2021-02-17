@@ -141,6 +141,56 @@ class Inicio extends CI_Controller {
 		$_POST['condicion'] = array('id'=>$_POST['id']);
 		var_dump( $this->api->post('eliminar', $_POST)->response);
 	}
+	public function entrega(){
+		$this->basicas();
+		$_POST['tabla'] = 'formas_entrega';
+		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
+		$this->load->view('entregas/entrega',$data);
+		$this->load->view('entregas/entrega_js');
+		$this->load->view('footer');
+	}
+	public function crea_entrega(){
+		$titulo=$_POST['titulo'];
+		$costo =$_POST['costo'];
+		$descripcion=$_POST['descripcion'];
+		$mensaje_email=$_POST['mensaje_email'];
+		$fecha_creacion=$_POST['fecha_creacion'];
+		$_POST['tabla'] = 'formas_entrega';
+		$_POST['datos'] = array('titulo'=>$titulo,'costo'=>$costo,'descripcion'=>$descripcion,
+		'mensaje_email'=>$mensaje_email,'fecha_creacion'=>$fecha_creacion);
+		$this->api->post('insertar',$_POST)->response;
+			echo'<script type="text/javascript">
+				alert("Forma de Entrega registrada correctamente : ");
+				window.location.href="entrega";
+			</script>';		
+	}
+	public function ver_entrega($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['entrega']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'formas_entrega','condicion'=>$condicion))->response)->data);
+		$this->load->view('entregas/ver_entrega',$data);
+		$this->load->view('footer');
+	}
+	public function editar_entrega($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['entrega']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'formas_entrega','condicion'=>$condicion))->response)->data);
+		//var_dump($data['producto']);
+		$this->load->view('entregas/editar_entrega',$data);
+		$this->load->view('footer');
+	}
+	public function actualizar_entrega(){
+		$_POST['tabla']='formas_entrega';
+		$_POST['datos'] = array('titulo' => $_POST['titulo'],'descripcion' => $_POST['descripcion'],
+		'costo' => $_POST['costo'],'mensaje_email' => $_POST['mensaje_email']);
+		$_POST['condicion'] = array('id'=>$_POST['id']);
+		var_dump( $this->api->post('actualizar', $_POST)->response);
+	}
+	public function eliminar_entrega(){
+		$_POST['tabla']='formas_entrega';
+		$_POST['condicion'] = array('id'=>$_POST['id']);
+		var_dump( $this->api->post('eliminar', $_POST)->response);
+	}
 	public function pago(){
 		$this->basicas();
 		$_POST['tabla'] = 'formas_pago';

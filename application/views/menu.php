@@ -70,8 +70,15 @@ switch (true) {
     case strpos($url, 'pagos') !== false:
 		$pago_m = 'active';
 		$fa_icon = 'fal fa-cogs';
-        $titulo_m = 'Administración / Formas de Pago';
+        $titulo_m = 'Administración / Formas de pago';
         $descri_m = 'Módulo para la creación y administración de Formas de pago';
+        $m_superior_admin = 'active open';
+    break;
+    case strpos($url, 'entregas') !== false:
+		$entrega_m = 'active';
+		$fa_icon = 'fal fa-cogs';
+        $titulo_m = 'Administración / Formas de Entrega';
+        $descri_m = 'Módulo para la creación y administración de Formas de entrega';
         $m_superior_admin = 'active open';
     break;
     /////////////// Seguimiento //////////////
@@ -175,6 +182,11 @@ switch (true) {
                 <i class="fas fa-money-bill m-r-10"></i><span class="nav-link-text">Formas de Pago</span>
                 </a>
             </li>
+            <li class="'.$entrega_m.'">
+            <a href="'.base_url().'entregas" title="Formas de Entrega" data-filter-tags="entregas">
+            <i class="fas fa-truck m-r-10"></i><span class="nav-link-text">Formas de Entrega</span>
+            </a>
+        </li>
         </ul>
     </li>
     <li class="'.$ventas_m.'">
