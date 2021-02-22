@@ -267,7 +267,7 @@ class Inicio extends CI_Controller {
 	}
 	public function clientes(){
 		$this->basicas();
-		$_POST['tabla'] = 'clientes_actualizada';
+		$_POST['tabla'] = 'clientes';
 		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
 		$data['estado'] = $this->crea_select_estado();
 		$this->load->view('clientes/cliente',$data);
@@ -318,7 +318,7 @@ class Inicio extends CI_Controller {
 	public function ver_cliente($id){
 		$this->basicas();
 		$condicion = array('id'=>$id);
-		$data['cliente']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'clientes_actualizada','condicion'=>$condicion))->response)->data);
+		$data['cliente']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'clientes','condicion'=>$condicion))->response)->data);
 		$this->load->view('clientes/ver_cliente',$data);
 		$this->load->view('footer');
 	}
