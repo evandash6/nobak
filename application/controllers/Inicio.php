@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set('America/Mexico_City');
 
-require APPPATH. '/libraries/restclien.php';
+
 class Inicio extends CI_Controller {
 
 	private $api;
@@ -12,13 +12,6 @@ class Inicio extends CI_Controller {
 		parent::__construct();
 		$this->load->library('componentes');
 		$this->load->helper(array('form', 'url'));
-
-		$this->api = new RestClient([
-			'base_url' => 'https://apinobak.lamat.pro/api/',
-			
-			'format' => "json"
-		]);
-		//$this->seguridad();
 	}
 	//Carga de componentes basicas
 	private function basicas(){
@@ -30,80 +23,12 @@ class Inicio extends CI_Controller {
 		$this->load->view('funciones');
 		return $data;
 	}
-	public function index(){
-		$this->basicas();
-		$data['estado'] = $this->crea_select_estado();
-		//var_dump($data);
-		//$this->load->view('prueba',$data);
-		//$this->load->view('prueba_js');
-		$this->load->view('footer');
-		
-	}
-
 	
-	public function crea_select_estado($id = null){
-		$_POST['tabla'] = 'cat_estado';
-		$valores = "<option value=''>Selecciona</option>";
-		$array = $this->api->post('all',$_POST);
-        foreach ($array['data'] as $valor) {
-            if ($id != null && $valor->id == $id)
-               $valores .= "<option selected value='" . $valor->id . "'>" . $valor->nom_ent . "</option>";
-            else
-               $valores .= "<option value='" . $valor->id . "'>" . $valor->nom_ent . "</option>";
-        }
-        return $valores;
+	
+	public function index(){
+		$this->basicas();			
 	}
-	public function crea_select($tabla,$id = null){
-		$_POST['tabla'] = $tabla;
-		$valores = "<option value=''>Selecciona</option>";
-		$array = $this->api->post('all',$_POST);
-        foreach ($array['data'] as $valor) {
-            if ($id != null && $valor->id == $id)
-               $valores .= "<option selected value='" . $valor->id . "'>" . $valor->nombre. "</option>";
-            else
-               $valores .= "<option value='" . $valor->id . "'>" . $valor->nombre . "</option>";
-        }
-        return $valores;
-	}
-	public function empleados(){
-		$this->basicas();
-		$_POST['tabla'] = 'empleados';
-		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
-		//var_dump($data['datos']);
-		$this->load->view('empleados/empleado',$data);
-		$this->load->view('empleados/empleado_js');
-		$this->load->view('footer');
-	}
-
-	public function crea_empleado(){
-		$nombre=$_POST['nombre'];
-		$pass=$_POST['password'];
-		$password=password_hash($pass,PASSWORD_BCRYPT);
-		$curp=$_POST['curp'];
-		$fecha_nac=$_POST['fecha_nac'];
-		$puesto=$_POST['puesto'];
-		$domicilio=$_POST['domicilio'];
-		$telefono=$_POST['telefono'];
-		//$celular=$_POST['celular'];
-		$email=$_POST['email'];
-		$fecha_creacion=$_POST['fecha_ingreso'];
-		$_POST['tabla'] = 'empleados';
-		$_POST['datos'] = array('nombre'=>$nombre,'telefono'=>$telefono,'puesto_id'=>$puesto,'email'=>$email,'password'=>$password,'fecha_nac'=>$fecha_nac,'curp'=>$curp,'domicilio'=>$domicilio,
-		'activo'=>'1','fecha_creacion'=>$fecha_creacion);
-		$this->api->post('insertar',$_POST)->response;
-		 echo'<script type="text/javascript">
-				alert("Empleado registrado correctamente : ");
-				window.location.href="empleados";
-			</script>';	 
-	}
-	public function ver_empleado($id){
-		$this->basicas();
-		$condicion = array('id'=>$id);
-		$data['empleado']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'empleados','condicion'=>$condicion))->response)->data);
-		
-		$this->load->view('empleados/ver_empleado',$data);
-		$this->load->view('footer');
-	}
+	
 	public function editar_empleado($id){
 		$this->basicas();
 		$condicion = array('id'=>$id);

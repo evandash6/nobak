@@ -22,34 +22,46 @@
         })
     }
 
-    function confirm(titulo,texto,icono,salida=null){
+    function confirm(titulo,texto,icono,fn=function(){},fn2=function(){}){
         return new Promise(function(resolve, reject) {
         Swal.fire({
             icon: icono,
             title: titulo,
-            text: texto,
+            html: texto,
             showCancelButton: true,
-            confirmButtonColor: '#1dc9b7',
-            cancelButtonColor: '#f57379',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
             cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Confirmar'
+            confirmButtonText: 'Confirmar',
+            allowOutsideClick: false,
+            allowEscapeKey: false
         })
         .then(function(result){
             if(result.value){
                 resolve(true);
+                fn();
             }
-            // else{
-            //     reject(false);
-            // }
+            else{
+                fn2();
+            }
         })
         });
     }
 
-    function modal(titulo,codigo){
+    function cargando(){
         Swal.fire({
-        width: 750,
+        html: '<div class="row"><div class="col-md-12"><img style="max-width:250px" src="<?=base_url()?>frontend/images/spinner.gif" class="img"></div><div class="col-md-12"><p style="font-size:20px"><b>Espera un momento..</b></p></div></div>',
+        showConfirmButton: false,
         allowOutsideClick: false,
-        position: 'top',
+        allowEscapeKey: false
+        })
+    }
+
+    function modal(titulo,codigo,ancho=750,pos='top'){
+        Swal.fire({
+        width: ancho,
+        allowOutsideClick: false,
+        position: pos,
         title: titulo,
         html:codigo,
         showCancelButton: false,
@@ -333,21 +345,41 @@
       })
   }
 
-    var api = { 
+  var api = { 
         get: function (url) {
+            cargando();
             return $.ajax({
                 url: url,
                 type : 'GET',
-            });
+                contentType: false,
+                processData: false,
+                cache: false
+            }).done(function(){ swal.close()});
         },
-        post: function (url,data){
-            return $.ajax({
-                url: url,
-                type : 'POST',
-                data: data
-            });
+        post: function (url,data,activo=false,load=true){
+            if(activo){
+                if(load)
+                    cargando();
+                return $.ajax({
+                    url: url,
+                    type : 'POST',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    cache: false
+                }).done(function(){ swal.close()});
+            }
+            else{
+                if(load)
+                    cargando();
+                return $.ajax({
+                    url: url,
+                    type : 'POST',
+                    data: data
+                }).done(function(){ swal.close()});
+            }
         }
-    }; 
+    };  
     
 
     //inicializa menu
