@@ -9,6 +9,7 @@ class Empleados extends CI_Controller {
 		//$this->load->model('Api_model','AM',true);
 		$this->load->library('componentes');
 		$this->load->helper(array('form', 'url'));
+		$this->load->model('Api_model','AM',true);
 	}
 
 	private function codificar($arr){
@@ -39,120 +40,87 @@ class Empleados extends CI_Controller {
         return $valores;
     }
 
-	//Funcion de ver empleados en tabla
+	// //Funcion de ver empleados en tabla
 	public function index(){
-		$data = $this->basicas();
-		$data['empleados'] = $this->AM->all('vw_empleados','json');
-		$this->load->view('empleados/empleados',$data);
-		$this->load->view('empleados/empleados_js');
-		$this->load->view('footer',$data);
+		$this->basicas();
+		$data['empleados'] = json_encode($this->AM->consulta_personalizada('empleados', 'activo=1 ORDER BY id DESC')['data']);
+		$data['puestos'] = $this->AM->crea_select('puestos',null,'activo=1');
+		$this->load->view('empleados/empleado',$data);
+		$this->load->view('footer');
 	}
 
-	//Funcion para traer la vista de nuevo empleado
-	public function nuevo(){
-		$data = $this->basicas();
-		$data['puestos'] = $this->crea_select('c_puestos');
-		$this->load->view('empleados/nuevo_empleado',$data);
-		$this->load->view('empleados/empleados_js');
-		$this->load->view('footer',$data);
-	}
-
-	//Funcion para ver los datos de un empleado
-	public function ver($ide=null){
-		$data = $this->basicas();
-		$data['puestos'] = $this->crea_select('c_puestos');
-		$condicion = array('id'=>$ide);
-		$data['empleado'] = $this->AM->consulta_unica($condicion,'empleados');
-		$this->load->view('empleados/ver_empleado',$data);
-		$this->load->view('empleados/empleados_js');
-		$this->load->view('footer',$data);
-	}
-
-	//Funcion para cargar la vista de edicion de un empleado
-	public function editar($ide=null){
-		$data = $this->basicas();
-		$data['puestos'] = $this->crea_select('c_puestos');
-		$condicion = array('id'=>$ide);
-		$data['empleado'] = $this->AM->consulta_unica($condicion,'empleados');
-		$this->load->view('empleados/editar_empleado',$data);
-		$this->load->view('empleados/empleados_js');
-		$this->load->view('footer',$data);
-	}
-
-	//Funcion para guadar los datos de un empleado
-	public function save(){
-		//cargamos configuraciones
-		$config['upload_path'] = './frontend/emps/';
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        $config['max_size'] = 1000;
-		$config['file_name'] = md5(date('Y-m-d h:i:s'));
-		//Cragamos libreria necesaria
-		$this->load->library('upload', $config);
-		//verificamos la carga del archivo
-		if($this->upload->do_upload('foto_empleado')){
-			$_POST['foto_emp'] = $this->upload->data()['file_name'];
-			$res = $this->AM->insertar($_POST,'empleados');
-			if($res['ban'])
-				$this->codificar(array('ban'=>true,'msg'=>'Empleado Creado'));
-			else
-				$this->codificar(array('ban'=>false,'msg'=>'Error al guardar empleado','error'=>$res['error']));
-		}
-		else{
-			$this->codificar(array('ban'=>false,'msg'=>'Es necesaria foto para el empleado','error'=>$this->upload->display_errors()));
-		}
-	}
-
-	//Funcion para activar o inactivar un empleado
-	public function activar(){
-		$condicion = $_POST['condicion'];
-		$datos = $_POST['datos'];
-		if($this->AM->actualizar($condicion,$datos,'empleados')){
-			$this->codificar(array('ban'=>true,'msg'=>'Cambio aplicado'));
-		}
-		else
-			$this->codificar(array('ban'=>false,'msg'=>'Cambios No aplicados'));
-	}
-
-	//Funcion para actualizar datos de un empleado
-	public function actualizar(){
-		//cargamos configuraciones
-		$config['upload_path'] = './frontend/emps/';
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        $config['max_size'] = 1000;
-		$config['file_name'] = md5(date('Y-m-d h:i:s'));
-		//Cragamos libreria necesaria
-		$this->load->library('upload', $config);
-		//verificamos la carga del archivo
-		if($this->upload->do_upload('foto_empleado')){
-			$_POST['foto_emp'] = $this->upload->data()['file_name'];
-			$condicion = array('id'=>$_POST['id']);
-			unset($_POST['id']);
-			$res = $this->AM->actualizar($condicion,$_POST,'empleados');
-			if($res['ban'])
-				$this->codificar(array('ban'=>true,'msg'=>'Empleado Actualizado'));
-			else
-				$this->codificar(array('ban'=>false,'mgs'=>'Error al actualizar empleado','error'=>$res['error']));
-		}
-		else{
-			$condicion = array('id'=>$_POST['id']);
-			unset($_POST['id']);
-			$res = $this->AM->actualizar($condicion,$_POST,'empleados');
-			if($res['ban'])
-				$this->codificar(array('ban'=>true,'msg'=>'Empleado Actualizado'));
-			else
-				$this->codificar(array('ban'=>false,'msg'=>'Error al actualizar empleado','error'=>$res['error']));
-		}
-
-	}
-
-	//Funcion para eliminar un empleado
-	public function eliminar($id){
+	public function ver_empleado($id){
+		$this->basicas();
 		$condicion = array('id'=>$id);
-		if($this->AM->eliminar($condicion,'empleados')){
-			$this->codificar(array('ban'=>true,'msg'=>'Empleado Eliminado'));
-		}
-		else
-			$this->codificar(array('ban'=>false,'msg'=>'Error'));
+		$data['empleado'] = json_encode($this->AM->consulta('empleados',$condicion)['data'][0]);
+		$data['puestos'] = $this->AM->crea_select('puestos',null,'activo=1');
+		$this->load->view('empleados/ver_empleado',$data);
+		$this->load->view('footer');
+	}
+
+	public function save_empleado(){
+		$arr = $_POST;
+		$data_emp = array(
+			'nombre' => $arr['nombre'],
+			'fecha_nac'=> $arr['fecha_nac'],
+			'curp'=> $arr['curp'],
+			'domicilio'=> $arr['domicilio'],
+			'telefono'=> $arr['telefono'],
+			'celular'=> $arr['celular'],
+			'email'=> $arr['email'],
+			'password'=> password_hash($arr['pass'],PASSWORD_BCRYPT),
+			'puesto_id'=> $arr['puesto_id'],
+			'actividades'=> $arr['actividades'],
+			'fecha_ingreso'=> $arr['fecha_ingreso'],
+			'usuario_creador'=> 1,
+			'fecha_creacion'=> date('Y-m-d H:i:s')
+		);
+		echo json_encode($this->AM->save('empleados',$data_emp));
+	}
+
+	public function editar_empleado($id){
+		$this->basicas();
+		$condicion = array('id'=>$id);
+		$data['empleado'] = json_encode($this->AM->consulta('empleados',$condicion)['data'][0]);
+		$data['puestos'] = $this->AM->crea_select('puestos',null,'activo=1');
+		$this->load->view('empleados/editar_empleado',$data);
+		$this->load->view('footer');
+	}
+
+	public function actualizar_empleado(){
+		$arr = $_POST;
+		$data_emp = array(
+			'nombre' => $arr['nombre'],
+			'fecha_nac'=> $arr['fecha_nac'],
+			'curp'=> $arr['curp'],
+			'domicilio'=> $arr['domicilio'],
+			'telefono'=> $arr['telefono'],
+			'celular'=> $arr['celular'],
+			'email'=> $arr['email'],
+			'puesto_id'=> $arr['puesto_id'],
+			'actividades'=> $arr['actividades'],
+			'fecha_ingreso'=> $arr['fecha_ingreso']
+		);
+		$condicion = array('id'=>$arr['id']);
+		echo json_encode($this->AM->actualizar('empleados',$data_emp,$condicion));
+	}
+
+	public function act_pass(){
+		$arr = $_POST;
+		$data_emp = array(
+			'password'=> password_hash($arr['pass_m2'],PASSWORD_BCRYPT),
+		);
+		$condicion = array('id'=>$arr['id']);
+		echo json_encode($this->AM->actualizar('empleados',$data_emp,$condicion));
+	}
+
+	public function inactivar_empleado($id){
+		$arr = $_POST;
+		$data_emp = array(
+			'activo'=> 0,
+		);
+		$condicion = array('id'=>$id);
+		echo json_encode($this->AM->actualizar('empleados',$data_emp,$condicion));
 	}
 
 }
