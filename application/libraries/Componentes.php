@@ -56,8 +56,8 @@ class Componentes {
                             <img src="'.base_url().'frontend/images/avatar-m.png" class="rounded-circle profile-image" alt="Dr. Codex Lantern">
                         </span>
                         <div class="info-card-text">
-                            <div class="fs-lg text-truncate text-truncate-lg">NOMBRE DE USUARIO</div>
-                            <span class="text-truncate text-truncate-md opacity-80">EMAIL DE USUARIO</span>
+                            <div class="fs-lg text-truncate text-truncate-lg">'.$_SESSION['nombre_completo'].'</div>
+                            <span class="text-truncate text-truncate-md opacity-80">'.$_SESSION['email'].'</span>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@ class Componentes {
                     <i class="float-right text-muted fw-n">Ctrl + P</i>
                 </a>
                 <div class="dropdown-divider m-0"></div>
-                <a class="dropdown-item fw-500 pt-3 pb-3 text-center" href="page_login-alt.html">
+                <a class="dropdown-item fw-500 pt-3 pb-3 text-center" href="'.base_url().'sesion/eliminar_ses">
                     <span data-i18n="drpdwn.page-logout">Salir</span>
                 </a>
             </div>

@@ -12,7 +12,17 @@ class Inicio extends CI_Controller {
 		parent::__construct();
 		$this->load->library('componentes');
 		$this->load->helper(array('form', 'url'));
+		$this->load->model('Api_model','AM',true);
+		$this->seguridad();
 	}
+
+	private function seguridad(){
+		if(!isset($_SESSION['empleado_id']))
+		redirect(base_url().'sesion');
+	}
+
+
+
 	//Carga de componentes basicas
 	private function basicas(){
 		$data['logo'] = $this->componentes->logo();
@@ -23,310 +33,185 @@ class Inicio extends CI_Controller {
 		$this->load->view('funciones');
 		return $data;
 	}
+
+	private function integra($arr,$tipo){
+		switch ($tipo) {
+			case 'barras':
+				$new_arr = array();
+				for ($i=0; $i < count($arr) ; $i++) { 
+					$new_arr['etiquetas'][$i] = $arr[$i]->mes;
+					$new_arr['valores'][$i] = $arr[$i]->total_mes;
+				}
+				return $new_arr;
+			break;
+		}
+	}
 	
-	
+	//seguimiento
 	public function index(){
-		$this->basicas();			
-	}
-	
-	public function editar_empleado($id){
 		$this->basicas();
+		$data['pie'] = $this->AM->all('vw_pie')['data'];
+		$data['barras'] = $this->integra($this->AM->all('vw_barras')['data'],'barras');
+		$this->load->view('estadistica',$data);
+	}
+
+	/// FORMAS DE PAGO ///
+	public function fpago(){
+		$this->basicas();
+        $data['datos'] = json_encode($this->AM->consulta_personalizada('formas_pago','activo=1 ORDER BY id DESC')['data']);
+        $this->load->view('pagos/fpago',$data);
+	}
+
+	public function ver_fpago($id){
+		$this->basicas();
+		$data['fpago'] = json_encode($this->AM->consulta_personalizada('formas_pago','id='.$id)['data'][0]);
+		$this->load->view('pagos/ver_fpago',$data);
+		$this->load->view('footer');
+	}
+
+	public function editar_fpago($id){
+		$this->basicas();
+		$data['fpago']= json_encode($this->AM->consulta_personalizada('formas_pago','id='.$id)['data'][0]);
+		$this->load->view('pagos/editar_fpago',$data);
+		$this->load->view('footer');
+	}
+
+	public function actualizar_fpago(){
+		$config['upload_path'] = 'frontend/images/payment/';
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['max_size'] = 2000;
+		$config['file_name'] = uniqid();
+		//Cragamos libreria necesaria
+		$this->load->library('upload', $config);
+		//verificamos la carga del archivo
+		if($this->upload->do_upload('foto_fpago')){
+			$_POST['imagen'] = $this->upload->data()['file_name'];
+			$arr  = $_POST;
+			$data_pag = array(
+				'titulo' => $arr['titulo'],
+				'descripcion'=> $arr['descripcion'],
+				'costo'=> $arr['costo'],
+				'imagen'=> $_POST['imagen'],
+				'mensaje_email'=> $arr['mensaje_email']
+			);
+		}
+		else{
+			$arr  = $_POST;
+			$data_pag = array(
+				'titulo' => $arr['titulo'],
+				'descripcion'=> $arr['descripcion'],
+				'costo'=> $arr['costo'],
+				'mensaje_email'=> $arr['mensaje_email']
+			);
+		}
+		$condicion = array('id'=>$arr['id']);
+		echo json_encode($this->AM->actualizar('formas_pago',$data_pag,$condicion));
+	}
+
+	public function inactivar_fpago($id){
+		$arr = $_POST;
+		$data_pag = array(
+			'activo'=> 0,
+		);
 		$condicion = array('id'=>$id);
-		$data['empleado']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'empleados','condicion'=>$condicion))->response)->data);
-		
-		$this->load->view('empleados/editar_empleado',$data);
+		echo json_encode($this->AM->actualizar('formas_pago',$data_pag,$condicion));
+	}
+
+	public function save_fpago(){
+		$config['upload_path'] = 'frontend/images/payment/';
+        $config['allowed_types'] = 'jpg|png|jpeg';
+        $config['max_size'] = 2000;
+		$config['file_name'] = uniqid();
+		//Cragamos libreria necesaria
+		$this->load->library('upload', $config);
+		//verificamos la carga del archivo
+		if($this->upload->do_upload('foto_fpago')){
+			$_POST['imagen'] = $this->upload->data()['file_name'];
+			$arr  = $_POST;
+			$data_pag = array(
+				'titulo' => $arr['titulo'],
+				'descripcion'=> $arr['descripcion'],
+				'costo'=> $arr['costo'],
+				'imagen'=> $_POST['imagen'],
+				'mensaje_email'=> $arr['mensaje_email'],
+				'usuario_creacion' => 1,
+				'fecha_creacion' => date('Y-m-d H:i:s')
+			);
+		}
+		else{
+			$arr  = $_POST;
+			$data_pag = array(
+				'titulo' => $arr['titulo'],
+				'descripcion'=> $arr['descripcion'],
+				'costo'=> $arr['costo'],
+				'mensaje_email'=> $arr['mensaje_email'],
+				'usuario_creacion' => 1,
+				'fecha_creacion' => date('Y-m-d H:i:s')
+			);
+		}
+		echo json_encode($this->AM->save('formas_pago',$data_pag));
+	}	
+	/// END FORMAS DE PAGO ///
 	
-		$this->load->view('footer');
-	}
-	public function actualizar_empleado(){
-		$password=password_hash($_POST['password'],PASSWORD_BCRYPT);
-		$_POST['tabla']='empleados';
-		$_POST['datos'] = array('direccion' => $_POST['direccion'],'telefono' => $_POST['telefono'],'cp' => $_POST['cp'],
-			'colonia' => $_POST['colonia'],'email' => $_POST['email'],'password' => $password);
-		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump( $this->api->post('actualizar', $_POST)->response);
-	}
-	public function usuarios(){
-	    $this->basicas();
-		$_POST['tabla'] = 'empleados';
-		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
-		//var_dump($data['datos']);
-		$this->load->view('usuarios/usuario',$data);
-		$this->load->view('usuarios/usuario_js');
-		$this->load->view('footer');
-	}
-	public function editar_usuario(){
-		$_POST['tabla']='empleados';
-		$_POST['datos'] = array('nombre' => $_POST['nombre']);
-		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump( $this->api->post('actualizar', $_POST)->response);
-	}
-	public function eliminar_usuario(){
-		$_POST['tabla']='empleados';
-		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump( $this->api->post('eliminar', $_POST)->response);
-	}
-	public function entrega(){
+	/// FORMAS DE ENTREGA ///
+	public function entregas(){
 		$this->basicas();
-		$_POST['tabla'] = 'formas_entrega';
-		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
+		$data['datos']= json_encode($this->AM->consulta_personalizada('formas_entrega','activo=1')['data']);
 		$this->load->view('entregas/entrega',$data);
-		$this->load->view('entregas/entrega_js');
 		$this->load->view('footer');
 	}
-	public function crea_entrega(){
-		$titulo=$_POST['titulo'];
-		$costo =$_POST['costo'];
-		$descripcion=$_POST['descripcion'];
-		$mensaje_email=$_POST['mensaje_email'];
-		$fecha_creacion=$_POST['fecha_creacion'];
-		$_POST['tabla'] = 'formas_entrega';
-		$_POST['datos'] = array('titulo'=>$titulo,'costo'=>$costo,'descripcion'=>$descripcion,
-		'mensaje_email'=>$mensaje_email,'fecha_creacion'=>$fecha_creacion);
-		$this->api->post('insertar',$_POST)->response;
-			echo'<script type="text/javascript">
-				alert("Forma de Entrega registrada correctamente : ");
-				window.location.href="entrega";
-			</script>';		
-	}
+
 	public function ver_entrega($id){
 		$this->basicas();
-		$condicion = array('id'=>$id);
-		$data['entrega']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'formas_entrega','condicion'=>$condicion))->response)->data);
+		$data['datos']= json_encode($this->AM->consulta_personalizada('formas_entrega','id='.$id)['data'][0]);
 		$this->load->view('entregas/ver_entrega',$data);
 		$this->load->view('footer');
 	}
+
 	public function editar_entrega($id){
 		$this->basicas();
-		$condicion = array('id'=>$id);
-		$data['entrega']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'formas_entrega','condicion'=>$condicion))->response)->data);
-		//var_dump($data['producto']);
+		$data['entrega']= json_encode($this->AM->consulta_personalizada('formas_entrega','id='.$id)['data'][0]);
 		$this->load->view('entregas/editar_entrega',$data);
 		$this->load->view('footer');
 	}
+
 	public function actualizar_entrega(){
-		$_POST['tabla']='formas_entrega';
-		$_POST['datos'] = array('titulo' => $_POST['titulo'],'descripcion' => $_POST['descripcion'],
-		'costo' => $_POST['costo'],'mensaje_email' => $_POST['mensaje_email']);
-		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump( $this->api->post('actualizar', $_POST)->response);
+		$arr  = $_POST;
+		$data_ent = array(
+			'titulo' => $arr['titulo'],
+			'descripcion'=> $arr['descripcion'],
+			'costo'=> $arr['costo'],
+			'mensaje_email'=> $arr['mensaje_email']
+		);
+		$condicion = array('id'=>$arr['id']);
+		echo json_encode($this->AM->actualizar('formas_entrega',$data_ent,$condicion));
 	}
-	public function eliminar_entrega(){
-		$_POST['tabla']='formas_entrega';
-		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump( $this->api->post('eliminar', $_POST)->response);
-	}
-	public function pago(){
-		$this->basicas();
-		$_POST['tabla'] = 'formas_pago';
-		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
-		$this->load->view('pagos/pago',$data);
-		$this->load->view('pagos/pago_js');
-		$this->load->view('footer');
-	}
-	public function crea_pago(){
-		$file = $this->carga_archivo('foto_pago',4000,'gif|jpg|png','./frontend/forma_pago/','jpg');
-		if($file['ban']){
-		$_POST['imagen'] = $file['file_name'];
-		$titulo=$_POST['titulo'];
-		$costo =$_POST['costo'];
-		$descripcion=$_POST['descripcion'];
-		$mensaje_email=$_POST['mensaje_email'];
-		$fecha_creacion=$_POST['fecha_creacion'];
-		$imagen=$_POST['imagen'];
-		$_POST['tabla'] = 'formas_pago';
-		$_POST['datos'] = array('titulo'=>$titulo,'costo'=>$costo,'descripcion'=>$descripcion,
-		'mensaje_email'=>$mensaje_email,'fecha_creacion'=>$fecha_creacion,'imagen'=>$imagen);
-		$this->api->post('insertar',$_POST)->response;
-		echo'<script type="text/javascript">
-				alert("Forma de Pago registrada correctamente : ");
-				window.location.href="pago";
-			</script>';
-		}else	echo'<script type="text/javascript">
-		alert("ERROR Forma de Pago no registrada : ");
-		window.location.href="pago";
-		</script>';	
-	}
-	public function ver_pago($id){
-		$this->basicas();
+
+	public function inactivar_entrega($id){
+		$arr = $_POST;
+		$data_pag = array(
+			'activo'=> 0,
+		);
 		$condicion = array('id'=>$id);
-		$data['pago']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'formas_pago','condicion'=>$condicion))->response)->data);
-		$this->load->view('pagos/ver_pago',$data);
-		$this->load->view('footer');
+		echo json_encode($this->AM->actualizar('formas_entrega',$data_pag,$condicion));
 	}
-	public function editar_pago($id){
-		$this->basicas();
-		$condicion = array('id'=>$id);
-		$data['pago']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'formas_pago','condicion'=>$condicion))->response)->data);
-		//var_dump($data['producto']);
-		$this->load->view('pagos/editar_pago',$data);
-	
-		$this->load->view('footer');
+
+	public function save_entrega(){
+		$arr  = $_POST;
+		$data_ent = array(
+			'titulo' => $arr['titulo'],
+			'descripcion'=> $arr['descripcion'],
+			'costo'=> $arr['costo'],
+			'mensaje_email'=> $arr['mensaje_email'],
+			'usuario_creacion' => 1,
+			'fecha_creacion' => date('Y-m-d H:i:s')
+		);
+		echo json_encode($this->AM->save('formas_entrega',$data_ent));	
 	}
-	public function actualizar_pago(){
-		$_POST['tabla']='formas_pago';
-		$_POST['datos'] = array('titulo' => $_POST['titulo'],'descripcion' => $_POST['descripcion'],
-		'costo' => $_POST['costo'],'mensaje_email' => $_POST['mensaje_email']);
-		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump( $this->api->post('actualizar', $_POST)->response);
-	}
-	public function eliminar_pago(){
-		$_POST['tabla']='formas_pago';
-		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump( $this->api->post('eliminar', $_POST)->response);
-	}
-	public function ventas(){
-		$this->basicas();
-		$_POST['tabla'] = 'ventas';
-		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
-		$this->load->view('ventas/ventas',$data);
-		$this->load->view('ventas/ventas_js');
-		$this->load->view('footer');
-	}
-	public function ver_venta($id){
-		$this->basicas();
-		$condicion = array('venta_id'=>$id);
-		$data['venta']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'vw_detalle_ventas','condicion'=>$condicion))->response)->data);
-		$this->load->view('ventas/ver_venta',$data);
-		$this->load->view('footer');
+	/// END FORMAS DE ENTREGA ///
+
+	public function variables(){
+		var_dump($_SESSION);
 	}
 	
-	public function productos(){
-		$data = $this->basicas();
-		$_POST['tabla'] = 'vw_productos_filtro';
-		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
-		//var_dump($data['datos']);
-		$data['categorias'] = $this->crea_select('categorias');
-		$this->load->view('productos/producto',$data);
-		$this->load->view('productos/producto_js');
-		$this->load->view('footer');
-	}
-	private function carga_archivo($nombre,$tam,$tipo,$path,$acro){
-		$config['upload_path'] = $path;
-        $config['allowed_types'] = $tipo;
-        $config['max_size'] = $tam;
-		$config['file_name'] = $acro.'_'.md5(date('Y-m-d h:i:s'));
-		
-		$this->load->library('upload', $config);
-		$this->upload->initialize($config);
-		if($this->upload->do_upload($nombre))
-			return array('ban'=>true,'file_name'=>$config['file_name']);
-		else
-			return array('ban'=>false);
-	}
-	public function crea_producto(){
-		//$usuario_creador=$_POST['usuario_creador'];
-		//$direccion1=$_POST['direccion1'];
-		//$estatus=$_POST['estatus'];
-		//$tipo=$_POST['tipo'];
-		$file = $this->carga_archivo('foto_producto',4000,'gif|jpg|png','./frontend/productos/','jpg');
-		if($file['ban']){
-		$_POST['fotografia_name'] = $file['file_name'];
-		$code=$_POST['code'];
-		$nombre =$_POST['nombre'];
-		$descripcion=$_POST['descripcion'];
-		$precio=$_POST['precio'];
-		$activo=$_POST['activo'];
-		$categoria=$_POST['categoria'];
-		$fecha_creacion=$_POST['fecha_creacion'];
-		$fotografía_name=$_POST['fotografia_name'];
-		$_POST['tabla'] = 'productos';
-		$_POST['datos'] = array('nombre'=>$nombre,'code'=>$code,'activo'=>$activo,'categoria'=>$categoria,'descripcion'=>$descripcion,'precio'=>$precio,
-		'fotografia_name'=>$fotografía_name, 'fecha_creacion'=>$fecha_creacion);
-		$this->api->post('insertar',$_POST)->response;
-		echo'<script type="text/javascript">
-				alert("Producto registrado correctamente : ");
-				window.location.href="productos";
-			</script>';
-		}else 	echo'<script type="text/javascript">
-		alert("Producto No registrado: ");
-		window.location.href="productos";
-		</script>';	
-	}
-	public function ver_producto($id){
-		$this->basicas();
-		$condicion = array('id'=>$id);
-		$data['producto']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'vw_productos_filtro','condicion'=>$condicion))->response)->data);
-		$this->load->view('productos/ver_producto',$data);
-		$this->load->view('footer');
-	}
-	public function editar_producto($id){
-		$this->basicas();
-		$condicion = array('id'=>$id);
-		$data['producto']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'vw_productos_filtro','condicion'=>$condicion))->response)->data);
-		//var_dump($data['producto']);
-		$this->load->view('productos/editar_producto',$data);
-	
-		$this->load->view('footer');
-	}
-	public function actualizar_producto(){
-		$_POST['tabla']='productos';
-		$_POST['datos'] = array('nombre' => $_POST['nombre'],'descripcion' => $_POST['descripcion'],
-		'precio' => $_POST['precio'],'activo' => $_POST['activo']);
-		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump($this->api->post('actualizar', $_POST)->response);
-	}
-	public function eliminar_producto(){
-		$_POST['tabla']='productos';
-		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump( $this->api->post('eliminar', $_POST)->response);
-	}
-	public function cedis(){
-		$this->basicas();
-		$_POST['tabla'] = 'cedis';
-		$data['datos']=json_encode(json_decode( $this->api->post('all',$_POST)->response)->data);
-		//var_dump($data['datos']);
-		$this->load->view('cedis/cedis',$data);
-		$this->load->view('cedis/cedis_js');
-		$this->load->view('footer');
-	}
-	public function crea_cedis(){
-		//$ultimo_acceso=$_POST['ultimo_acceso'];
-		//$direccion1=$_POST['direccion1'];
-		//$estado=$_POST['estado_id'];
-		//$municipio=$_POST['municipio_id'];
-		$email=$_POST['email'];
-		$direccion =$_POST['direccion'];
-		$contacto=$_POST['contacto'];
-		$cdl=$_POST['cdl'];
-		$telefono=$_POST['telefono'];
-		$fecha_creacion=$_POST['fecha_creacion'];
-		$cedis=$_POST['cedis'];
-		$_POST['tabla'] = 'cedis';
-		$_POST['datos'] = array('cedis'=>$cedis,'email'=>$email,'direccion'=>$direccion,
-		'contacto'=>$contacto,'telefono'=>$telefono,'cdl'=>$cdl,'fecha_creacion'=>$fecha_creacion);
-		$this->api->post('insertar',$_POST)->response;
-		echo'<script type="text/javascript">
-				alert("CeDis registrado correctamente : ");
-				window.location.href="cedis";
-			</script>';		
-	}
-	public function ver_cedis($id){
-		$this->basicas();
-		$condicion = array('id'=>$id);
-		$data['cedis']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'cedis','condicion'=>$condicion))->response)->data);
-		$this->load->view('cedis/ver_cedis',$data);
-		$this->load->view('footer');
-	}
-	public function editar_cedis($id){
-		$this->basicas();
-		$condicion = array('id'=>$id);
-		$data['cedis']=json_encode(json_decode( $this->api->post('consulta',array('tabla'=>'cedis','condicion'=>$condicion))->response)->data);
-		var_dump($data['cedis']);
-		$this->load->view('cedis/editar_cedis',$data);
-	
-		$this->load->view('footer');
-	}
-	public function actualizar_cedis(){
-		$_POST['tabla']='cedis';
-		$_POST['datos'] = array('cedis' => $_POST['cedis'],'cdl' => $_POST['cdl'],'telefono' => $_POST['telefono'],
-		'email' => $_POST['email'],'contacto' => $_POST['contacto']);
-		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump($this->api->post('actualizar', $_POST)->response);
-	}
-	public function eliminar_cedis(){
-		$_POST['tabla']='cedis';
-		$_POST['condicion'] = array('id'=>$_POST['id']);
-		var_dump( $this->api->post('eliminar', $_POST)->response);
-	}
 }

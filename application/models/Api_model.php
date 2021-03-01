@@ -59,7 +59,7 @@ class Api_model extends CI_Model {
 		}
 	}
 
-    public function crea_select($tabla, $id = null,$condicion=null,$valores = "<option value=''>Selecciona</option>"){
+    public function crea_select($tabla, $id = null,$condicion,$valores = "<option value=''>Selecciona</option>"){
         $array = $this->consulta($tabla,$condicion);
         if($array['ban']){
             foreach ($array['data'] as $valor) {
@@ -94,18 +94,7 @@ class Api_model extends CI_Model {
     //     }
     //     return $valores;
 	// }
-	// public function crea_select($tabla,$id = null){
-	// 	$_POST['tabla'] = $tabla;
-	// 	$valores = "<option value=''>Selecciona</option>";
-	// 	$array = $this->api->post('all',$_POST);
-    //     foreach ($array['data'] as $valor) {
-    //         if ($id != null && $valor->id == $id)
-    //            $valores .= "<option selected value='" . $valor->id . "'>" . $valor->nombre. "</option>";
-    //         else
-    //            $valores .= "<option value='" . $valor->id . "'>" . $valor->nombre . "</option>";
-    //     }
-    //     return $valores;
-	// }
+
 
     //Funcion para traer todos los registros con o sin condicion
     public function all($tabla){
@@ -121,6 +110,7 @@ class Api_model extends CI_Model {
     //Funcion para traer todos los registros con una 
     public function consulta($tabla,$condicion){
         $query = $this->api->post('consulta',array('tabla'=>$tabla,'condicion'=>$condicion))->response;
+        //var_dump($query);
         if(json_decode($query)->ban){
             return array('ban'=>true,'data'=>json_decode($query)->data);
         }

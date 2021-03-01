@@ -69,8 +69,8 @@
                     </div> 
                     <div class="row m-t-20">
                         <div class="col-md-12 text-right">
-                        <button onclick="location.href ='<?=base_url()?>empleados'" class="btn btn-danger waves-effect waves-themed"><i class="fa fa-reply m-r-5"></i> Regresar</button>
-                        <button id="btn_act_empleado" class="btn btn-info waves-effect waves-themed"><i class="fa fa-edit m-r-5"></i> Actualizar</button>
+                        <button onclick="location.href ='<?=base_url()?>empleados'" class="btn btn-danger"><i class="fa fa-reply m-r-5"></i> Regresar</button>
+                        <button id="btn_act_empleado" class="btn btn-info"><i class="fa fa-edit m-r-5"></i> Actualizar</button>
                         </div>
                     </div>
 <script>

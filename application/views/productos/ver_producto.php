@@ -89,8 +89,7 @@
             $(this).attr('disabled',true)
         })
         if(valores.fotografia_name != null){
-            $('img[name=img_producto]').attr('src','<?=base_url()?>frontend/productos/'+valores.fotografia_name+'.jpg')
-            
+            $('img[name=img_producto]').attr('src','<?=base_url()?>frontend/productos/'+valores.fotografia_name)
         }
     })
 </script>

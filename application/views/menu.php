@@ -6,11 +6,9 @@ $titulo_m = '';
 $descri_m = '';
 $fa_icon = '';
 
+$m_superior_ini = '';
 $m_superior_admin = '';
-$m_superior_oper = '';
-$m_superior_alma = '';
-$m_superior_nomi = '';
-$m_superior_finan = '';
+$m_superior_seg = '';
 
 $configuraciones_m = '';
 $perfiles_m = '';
@@ -67,95 +65,44 @@ switch (true) {
         $descri_m = 'Módulo para la creación y administración de Centros de distribución';
         $m_superior_admin = 'active open';
     break;
-    case strpos($url, 'pagos') !== false:
+    case strpos($url, 'fpago') !== false:
 		$pago_m = 'active';
 		$fa_icon = 'fal fa-cogs';
         $titulo_m = 'Administración / Formas de pago';
         $descri_m = 'Módulo para la creación y administración de Formas de pago';
         $m_superior_admin = 'active open';
     break;
-    case strpos($url, 'entregas') !== false:
+    case strpos($url, 'entrega') !== false:
 		$entrega_m = 'active';
 		$fa_icon = 'fal fa-cogs';
         $titulo_m = 'Administración / Formas de Entrega';
         $descri_m = 'Módulo para la creación y administración de Formas de entrega';
         $m_superior_admin = 'active open';
     break;
-    /////////////// Seguimiento //////////////
-    case strpos($url, 'rollos') !== false:
-		$prollos_m = 'active';
-		$fa_icon = 'fal fa-puzzle-piece';
-        $titulo_m = 'Producción / Producción de Rollos';
-        $descri_m = 'Módulo para la administración en la producción de rollos';
-        $m_superior_oper = 'active open';
+    case strpos($url, 'seguimiento') !== false:
+		$fa_icon = 'fal fa-chart-line';
+        $titulo_m = 'Seguimiento';
+        $descri_m = 'Módulo para la gestion del seguimiento de compras de clientes';
+        $m_superior_seg = 'active open';
     break;
-    case strpos($url, 'maquila') !== false:
-		$maquila_m = 'active';
-		$fa_icon = 'fal fa-puzzle-piece';
-        $titulo_m = 'Producción / Recepcion de Maquila';
-        $descri_m = 'Módulo para la recepción de piezas provenientes de un corte';
-        $m_superior_oper = 'active open';
-    break;
-    case strpos($url, 'corte') !== false:
-		$corte_m = 'active';
-		$fa_icon = 'fal fa-puzzle-piece';
-        $titulo_m = 'Producción / Programación de Cortes';
-        $descri_m = 'Módulo para la creación y administración en la producción de piezas';
-        $m_superior_oper = 'active open';
-    break;
-    ///////////////// Almacen //////////////
-    case strpos($url, 'insumos') !== false:
-		$materiaprima_m = 'active';
-		$fa_icon = 'fa fa-box';
-        $titulo_m = 'Materia Prima e Insumos';
-        $descri_m = 'Módulo para el registro de Materia prima o Insumos';
-        $m_superior_alma = 'active open';
-    break;
-    ///////////////////////////////////////
-    case strpos($url, 'pagos') !== false:
-		$pagos_m = 'active';
-		$fa_icon = 'fa fa-coins';
-        $titulo_m = 'Pago a Empleados';
-        $descri_m = 'Módulo para definición y pago de nomina a empleados';
-        $m_superior_nomi = 'active open';
-    break;
-    case strpos($url, 'prestamos') !== false:
-		$prestamos_m = 'active';
-		$fa_icon = 'fa fa-coins';
-        $titulo_m = 'Prestamos';
-        $descri_m = 'Módulo para el registro de prestamos a empleados';
-        $m_superior_nomi = 'active open';
-    break;
-    ///////////////////////////////////////
-    case strpos($url, 'compras') !== false:
-		$compras_m = 'active';
-		$fa_icon = 'fal fa-euro-sign';
-        $titulo_m = 'Compras';
-        $descri_m = 'Módulo para el registro de compras a proveedores';
-        $m_superior_finan = 'active open';
-    break;
-    case strpos($url, 'ventas') !== false:
-		$ventas_m = 'active';
-		$fa_icon = 'fas fa-money-bill';
-        $titulo_m = 'Ventas';
-        $descri_m = 'Módulo para ver el registro de ventas a clientes';
-        $m_superior_finan = 'active open';
-    break;
-    case strpos($url, 'caja') !== false:
-		$caja_chica_m = 'active';
-		$fa_icon = 'fal fa-euro-sign';
-        $titulo_m = 'Caja Chica';
-        $descri_m = 'Módulo para el registro de todos los movimientos que surjan de caja chica';
-        $m_superior_finan = 'active open';
-	break;
 	default:
+        $seguimiento_m = 'active';
+		$fa_icon = 'fas fa-home';
+        $titulo_m = 'NOBAK';
+        $descri_m = 'Sistema Administrativo NOBAK';
+        $m_superior_ini = 'active open';
 	break;
 }
 
     $menu = '
     <li class="nav-title">Menú</li>
+    <li class="'.$m_superior_ini.'">
+        <a href="'.base_url().'" title="Inicio" data-filter-tags="Inicio">
+            <i class="fas fa-home m-r-10"></i><span class="nav-link-text">Inicio</span>
+        </a>
+    </li>
     <li class="'.$m_superior_admin.'">
-        <a href="#"><i class="fal fa-cogs m-r-10"></i><span class="nav-link-text"> Administración</span></a>
+        <a href="#"><i class="fal fa-cogs"></i><span class="nav-link-text"> Administración</span></a>
         <ul>
             <li class="'.$empleados_m.'">
                 <a href="'.base_url().'empleados" title="Empleados" data-filter-tags="empleados">
@@ -178,20 +125,20 @@ switch (true) {
                 </a>
             </li>
             <li class="'.$pago_m.'">
-                <a href="'.base_url().'pagos" title="Formas de Pago" data-filter-tags="pagos">
+                <a href="'.base_url().'inicio/fpago" title="Formas de Pago" data-filter-tags="pagos">
                 <i class="fas fa-money-bill m-r-10"></i><span class="nav-link-text">Formas de Pago</span>
                 </a>
             </li>
             <li class="'.$entrega_m.'">
-            <a href="'.base_url().'entregas" title="Formas de Entrega" data-filter-tags="entregas">
+            <a href="'.base_url().'inicio/entregas" title="Formas de Entrega" data-filter-tags="entregas">
             <i class="fas fa-truck m-r-10"></i><span class="nav-link-text">Formas de Entrega</span>
             </a>
         </li>
         </ul>
     </li>
-    <li class="'.$ventas_m.'">
-        <a href="'.base_url().'ventas" title="Ventas" data-filter-tags="ventas">
-        <i class="fas fa-cash-register m-r-10"></i><span class="nav-link-text">Ventas</span>
+    <li class="'.$m_superior_seg.'">
+        <a href="'.base_url().'seguimiento" title="Seguimiento" data-filter-tags="seguimiento">
+            <i class="fas fa-chart-line m-r-10"></i><span class="nav-link-text">Seguimiento</span>
         </a>
     </li>';
 ?>

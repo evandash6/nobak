@@ -24,27 +24,27 @@
 
     function confirm(titulo,texto,icono,fn=function(){},fn2=function(){}){
         return new Promise(function(resolve, reject) {
-            Swal.fire({
-                icon: icono,
-                title: titulo,
-                html: texto,
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Confirmar',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-            })
-            .then(function(result){
-                if(result.value){
-                    resolve(true);
-                    fn();
-                }
-                else{
-                    fn2();
-                }
-            })
+        Swal.fire({
+            icon: icono,
+            title: titulo,
+            html: texto,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar',
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        })
+        .then(function(result){
+            if(result.value){
+                resolve(true);
+                fn();
+            }
+            else{
+                fn2();
+            }
+        })
         });
     }
 
@@ -60,6 +60,7 @@
     function modal(titulo,codigo,ancho=750,pos='top'){
         Swal.fire({
         width: ancho,
+        icon: icono,
         allowOutsideClick: false,
         position: pos,
         title: titulo,
@@ -83,6 +84,7 @@
         showCloseButton: true
         })
     }
+
 
   var api = { 
         get: function (url) {
@@ -119,8 +121,5 @@
             }
         }
     };  
-    
 
-    //inicializa menu
-    initApp.buildNavigation($("#js-nav-menu"));
 </script>

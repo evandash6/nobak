@@ -17,7 +17,6 @@
         <link rel="stylesheet" href="<?=base_url()?>frontend/css/tabulator_propio.css">
         <script type="text/javascript" src="<?=base_url()?>frontend/js/tabulator.min.js"></script>
         <script type="text/javascript" src="<?=base_url()?>frontend/js/sweetalert2.js"></script>
-        
     </head>
     <body class="mod-bg-1">
     <script>

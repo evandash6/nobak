@@ -10,6 +10,12 @@ class Empleados extends CI_Controller {
 		$this->load->library('componentes');
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('Api_model','AM',true);
+		$this->seguridad();
+	}
+
+	private function seguridad(){
+		if(!isset($_SESSION['empleado_id']))
+		redirect(base_url().'sesion');
 	}
 
 	private function codificar($arr){

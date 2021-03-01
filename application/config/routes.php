@@ -58,5 +58,5 @@ $route['default_controller'] = 'inicio';
 // $route['pagos'] = 'inicio/pago';
 // $route['entregas'] = 'inicio/entrega';
 // $route['cedis'] = 'inicio/cedis';
-$route['404_override'] = '';
+$route['404_override'] = 'sesion/_404';
 $route['translate_uri_dashes'] = FALSE;

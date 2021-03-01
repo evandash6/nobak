@@ -64,11 +64,15 @@
                             </div>
                         </div>
                     </div> 
-<div class="row m-t-20">
-    <div class="col-md-12 text-right">
-    <button onclick="location.href ='<?=base_url()?>empleados'" class="btn btn-danger waves-effect waves-themed"><i class="fa fa-reply m-r-5"></i> Regresar</button>
+                    <div class="row m-t-20">
+                        <div class="col-md-12 text-right">
+                        <button onclick="location.href ='<?=base_url()?>empleados'" class="btn btn-danger waves-effect waves-themed"><i class="fa fa-reply m-r-5"></i> Regresar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 <script>
     $(document).ready(function(){
         let valores =<?=$empleado?>;

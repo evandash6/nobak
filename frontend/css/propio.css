@@ -143,12 +143,18 @@ hr.style {
 .mayus{
   text-transform: uppercase;
 }
-.tabulator-table{
-  font-size: 12px;
-}
 .input2{
   background-color: transparent !important;
   outline: 0;
   border-width: 0 0 1px;
   border-color: #000
+}
+
+.no-fondo{
+  background-color: transparent !important;
+  border: none;
+}
+
+.bg-dark{
+  color: white !important;
 }

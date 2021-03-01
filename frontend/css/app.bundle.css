@@ -1104,7 +1104,7 @@ html body {
 /* app far left panel */
 .page-sidebar {
   color:white;
-  background: rgb(26, 64, 139);
+  background: #374b88;
   position: relative;
   -webkit-box-flex: 1;
       -ms-flex: 1 0 auto;
