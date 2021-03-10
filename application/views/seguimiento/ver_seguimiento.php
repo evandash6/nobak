@@ -167,6 +167,11 @@
             </table>
            </div>
        </div>
+       <div class="row">
+           <div class="col-md-12 text-right">
+            <button  onclick="location.href ='<?=base_url()?>seguimiento'"  class="btn btn-danger"><i class="fa fa-reply m-r-5"></i> Regresar</button>
+           </div>
+       </div>
     </div>
 </div>
 <script>

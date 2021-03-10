@@ -36,7 +36,7 @@ class Seguimiento extends CI_Controller {
 	public function index(){
         $this->basicas();
 		$data['ventas'] = json_encode($this->AM->consulta_personalizada('vw_ventas_seguimiento','1=1')['data']);
-		$data['estatus'] = $this->AM->crea_Select('estatus_general',null,'id<=9','<option value="0">TODOS</option>');
+		$data['estatus'] = $this->AM->crea_select('estatus_general',null,'id<=9','<option value="0">TODOS</option>');
 		$this->load->view('seguimiento/seguimiento',$data);
 	}
 
@@ -50,10 +50,11 @@ class Seguimiento extends CI_Controller {
 
     public function editar($id){
 		$this->basicas();
-		$data['compra'] = json_encode($this->AM->consulta('vw_ventas_seguimiento','id='.$id)['data'][0]);
+		$data['compra'] = $this->AM->consulta('vw_ventas_seguimiento','id='.$id)['data'][0];
         $data['his_compras'] = json_decode(json_encode($this->AM->consulta_personalizada('vw_historico_compras','venta_id='.$id)['data']),true);
+        $data['estatus'] = $this->AM->crea_select('estatus_general',$data['compra']->estatus_general_id,'1=1','');
 		$this->load->view('seguimiento/editar_seguimiento',$data);
-		$this->load->view('footer');
+		//$this->load->view('footer');
 	}
 
     public function cancelacion(){
@@ -69,44 +70,8 @@ class Seguimiento extends CI_Controller {
 
     public function validar_etapa(){
         $venta_id = $_POST['venta'];
-        $estatus_id = $_POST['id'];
-        $forma_entrega_id = $_POST['forma'];
-        $cedis_id = $_POST['cedis'];
-        switch ($estatus_id) {
-            //POR PAGAR
-            case 1:
-                $this->aplicar_etapa($venta_id,2);
-            break; 
-            //PAGADO
-            case 2:
-                $this->aplicar_etapa($venta_id,3);
-            break;  
-            //POR FABRICAR
-            case 3:
-                $this->aplicar_etapa($venta_id,4);
-            break; 
-            //FABRICADO
-            case 4:
-                if($forma_entrega_id == 4 && $cedis_id == 1)                {
-                    $this->aplicar_etapa($venta_id,7);
-                }
-                else{
-                    $this->aplicar_etapa($venta_id,5);
-                }
-            break;
-            case 5:
-                $this->aplicar_etapa($venta_id,6);
-            break; 
-            case 6:
-                $this->aplicar_etapa($venta_id,7);
-            break;  
-            case 7:
-                $this->aplicar_etapa($venta_id,8);
-            break;      
-        }
-    }
-
-    private function aplicar_etapa($venta_id,$estatus_id){
+        $estatus_id = $_POST['estatus_id'];
+ 
         $data_his = array(
             'venta_id'=>$venta_id,
             'estatus_id'=> $estatus_id,
@@ -118,6 +83,4 @@ class Seguimiento extends CI_Controller {
             echo json_encode($this->AM->actualizar('ventas',array('estatus_id'=>$estatus_id),$condicion));
         }
     }
-
-
 }

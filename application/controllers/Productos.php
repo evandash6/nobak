@@ -52,7 +52,9 @@ class Productos extends CI_Controller {
                 'nombre' => $arr['nombre'],
                 'descripcion'=> $arr['descripcion'],
                 'categoria'=> $arr['categoria_id'],
-                'precio'=> $arr['precio'],
+                'banner'=> $arr['banner'],
+				'precio'=> $arr['precio'],
+				'precio_promo'=> $arr['precio_promo'],
                 'fotografia_name'=> $arr['fotografia_name']
             );
             echo json_encode($this->AM->save('productos',$data_emp));
@@ -85,22 +87,40 @@ class Productos extends CI_Controller {
 		//Cragamos libreria necesaria
 		$this->load->library('upload', $config);
 		//verificamos la carga del archivo
-		if($this->upload->do_upload('foto_producto')){
-			$_POST['fotografia_name'] = $this->upload->data()['file_name'];
-            $arr = $_POST;
-			$data_emp = array(
-                'nombre' => $arr['nombre'],
-                'descripcion'=> $arr['descripcion'],
-                'categoria'=> $arr['categoria_id'],
-                'precio'=> $arr['precio'],
-                'fotografia_name'=> $arr['fotografia_name'],
-                'activo'=> $arr['activo']
-            );
-            $condicion = array('id'=>$arr['id']);
-            echo json_encode($this->AM->actualizar('productos',$data_emp,$condicion));
+		if($_FILES['foto_producto']['name'] != ""){
+			if($this->upload->do_upload('foto_producto')){
+				$_POST['fotografia_name'] = $this->upload->data()['file_name'];
+				$arr = $_POST;
+				$data_emp = array(
+					'nombre' => $arr['nombre'],
+					'descripcion'=> $arr['descripcion'],
+					'categoria'=> $arr['categoria_id'],
+					'banner'=> $arr['banner'],
+					'precio'=> $arr['precio'],
+					'precio_promo'=> $arr['precio_promo'],
+					'fotografia_name'=> $arr['fotografia_name'],
+					'activo'=> $arr['activo']
+				);
+				$condicion = array('id'=>$arr['id']);
+            	echo json_encode($this->AM->actualizar('productos',$data_emp,$condicion));
+			}
+			else{
+				echo json_encode(array('ban'=>false,'error'=>$this->upload->display_errors()));
+			}
 		}
 		else{
-			echo json_encode(array('ban'=>false,'error'=>$this->upload->display_errors()));
+			$arr = $_POST;
+			$data_emp = array(
+				'nombre' => $arr['nombre'],
+				'descripcion'=> $arr['descripcion'],
+				'categoria'=> $arr['categoria_id'],
+				'banner'=> $arr['banner'],
+				'precio'=> $arr['precio'],
+				'precio_promo'=> $arr['precio_promo'],
+				'activo'=> $arr['activo']
+			);
+			$condicion = array('id'=>$arr['id']);
+            echo json_encode($this->AM->actualizar('productos',$data_emp,$condicion));
 		}
 	}
 

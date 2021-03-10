@@ -37,14 +37,21 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-5">
+                                <div class="col-md-2">
                                     <label for="">Código:</label>
                                     <input type="text" name="code" class="form-control" autocomplete="off" maxlength="150">
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <label for="">Categoria:</label>
                                     <input type="text" name="categoria" class="form-control" autocomplete="off" maxlength="150">
                                 </div>
+                                <div class="col-md-4">
+                                        <label for="">¿Mostrado en Banner?:</label>
+                                        <select name="banner" class="form-control">
+                                            <option value="0">NO</option>
+                                            <option value="1">SI</option>
+                                        </select>
+                                    </div>
                             </div>
                             <div class="row m-t-20">
                                 <div class="col-md-10">
@@ -56,6 +63,10 @@
                                 <div class="col-md-5">
                                     <label for="">Precio $ :</label>
                                     <input name="precio" class="form-control" >
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="">Precio Promo $ :</label>
+                                    <input name="precio_promo" class="form-control" >
                                 </div>
                             </div>
                             <div class="row m-t-20">

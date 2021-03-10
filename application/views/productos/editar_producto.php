@@ -13,7 +13,7 @@
                                 <div class="row m-t-20">
                                     <div class="col-md-12 text-center">
                                         <img class="img img-fluid" src="<?=base_url()?>frontend/productos/<?=json_decode($producto,true)['fotografia_name']?>" alt="">
-                                        <input id="file-1" class="file" type="file" name="foto_producto" class="form-control" data-show-preview="false" data-allowed-file-extensions='["jpg","png","jpeg"]' required> <br />
+                                        <input id="file-1" class="file" type="file" name="foto_producto" class="form-control" data-show-preview="false" data-allowed-file-extensions='["jpg","png","jpeg"]'> <br />
                                         <small>Tamaño máximo de 2MB en .jpg o .png</small>
                                     </div>
                                 </div>
@@ -34,13 +34,20 @@
                                     </div>
                                 </div>
                                 <div class="row m-t-20">
-                                    <div class="col-md-5">
+                                    <div class="col-md-2">
                                         <label for="">Código:</label>
                                         <input type="text" readonly name="code" class="form-control" autocomplete="off" maxlength="150">
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-4">
                                         <label for="">Categoria:</label>
                                         <select name="categoria_id" class="form-control"><?=$categorias?></select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">¿Mostrar en Banner?:</label>
+                                        <select name="banner" class="form-control">
+                                            <option value="0">NO</option>
+                                            <option value="1">SI</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row m-t-20">
@@ -65,6 +72,17 @@
                                             <option value="1">Activo</option>
                                             <option value="0">Inactivo</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="row m-t-10">
+                                    <div class="col-md-5">
+                                        <label for="">Precio Promoción:</label>    
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">$</span>
+                                            </div>
+                                            <input type="number" step="0.01" name="precio_promo" class="form-control" >
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row m-t-20">

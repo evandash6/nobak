@@ -54,7 +54,7 @@
 
     $('body').on('click','.btx_editar',function(){
         let id = $(this).attr('ide');
-        location.href = '<?=base_url()?>seguimiento/editar/'+id;
+        modal('Actualización Estatus Pedido','<iframe id="inlineFrameExample" title="Inline Frame Example" width="100%" height="400" src="<?=base_url()?>seguimiento/editar/'+id+'"</iframe>',1024)
     })
 
     $('body').on('click','.btx_cancelar',function(){

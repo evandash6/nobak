@@ -31,15 +31,23 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-6">
-                                    <label for="">Calle y Número:</label>
-                                    <input type="text" required name="direccion" class="form-control">
+                                <div class="col-md-4">
+                                    <label for="">Calle:</label>
+                                    <input type="text" required name="calle" class="form-control">
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">Nº Exterior:</label>   
+                                    <input type="text" name="numero_exterior" class="form-control" maxlength="20" >
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">Nº Interior:</label>   
+                                    <input type="text" name="numero_interior" class="form-control" maxlength="20" >
                                 </div>
                                 <div class="col-md-3">
                                     <label for="">Colonia:</label>   
                                     <input type="text" required name="colonia" class="form-control" maxlength="50" >
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label for="">Código postal:</label>   
                                     <input type="text" name="cp" class="form-control" maxlength="20" >
                                 </div>
@@ -99,9 +107,17 @@
                                 </div>
                             </div>
                             <div class="row m-t-20">
-                                <div class="col-md-5">
-                                    <label for="">Calle y Número:</label>
-                                    <input type="text" name="direccion_ent" class="form-control">
+                                <div class="col-md-4">
+                                    <label for="">Calle:</label>
+                                    <input type="text" name="calle_ent" class="form-control">
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">Nº Exterior:</label>
+                                    <input type="text" name="numero_exterior_ent" class="form-control">
+                                </div>
+                                <div class="col-md-1">
+                                    <label for="">Nº Interior:</label>
+                                    <input type="text" name="numero_interior_ent" class="form-control">
                                 </div>
                                 <div class="col-md-3">
                                     <label for="">Estado:</label>

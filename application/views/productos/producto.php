@@ -37,13 +37,20 @@
                                     </div>
                                 </div>
                                 <div class="row m-t-20">
-                                    <div class="col-md-5">
+                                    <div class="col-md-2">
                                         <label for="">Código:</label>
                                         <input type="text" required name="code" class="form-control" autocomplete="off" maxlength="150">
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-4">
                                         <label for="">Categoria:</label>
                                         <select name="categoria_id" class="form-control" ><?=$categorias?> 
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">¿Mostrar en Banner?:</label>
+                                        <select name="banner" class="form-control">
+                                            <option value="0">NO</option>
+                                            <option value="1">SI</option>
                                         </select>
                                     </div>
                                 </div>
@@ -61,6 +68,15 @@
                                                 <span class="input-group-text" id="basic-addon1">$</span>
                                             </div>
                                             <input type="number" step="0.01" name="precio" class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="">Precio Promoción:</label>    
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon1">$</span>
+                                            </div>
+                                            <input type="number" step="0.01" name="precio _promo" value="0" class="form-control" >
                                         </div>
                                     </div>
                                 </div>                                    
@@ -142,10 +158,11 @@
         //height:205, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
         columns:[ //Define Table Columns
             {title:"Código", field:"code",headerFilter:'input', width:80},
-            {title:"Nombre", field:"nombre",headerFilter:'input',width:250},
-            {title:"Categorias", field:"categoria", headerFilter:'input',width:250},
+            {title:"Nombre", field:"nombre",headerFilter:'input',width:220},
+            {title:"Categorias", field:"categoria", headerFilter:'input',width:160},
             {title:"Precio", field:"precio",headerFilter:'input', width:100},
-            {title:"Fecha de creacion", field:"fecha_creacion",headerFilter:'input', sorter:"date", width:150},
+            {title:"Precio Promo", field:"precio_promo",headerFilter:'input', width:130},
+            {title:"F. Creacion", field:"fecha_creacion",headerFilter:'input', sorter:"date", width:120},
             {title:"Acciones", formatter:icons, align:"center"},
         ], 
         pagination:"local",
